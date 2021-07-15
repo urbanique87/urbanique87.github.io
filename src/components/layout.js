@@ -3,7 +3,6 @@ import { Link } from "gatsby";
 
 /**
  * Layout
- * @param {string} props.pageTitle
  * @param {any} props.children
  */
 const Layout = ({ children }) => {
