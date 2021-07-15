@@ -1,0 +1,2 @@
+(self.webpackChunkmy_blog=self.webpackChunkmy_blog||[]).push([[678],{7704:function(e,l,n){"use strict";n.r(l);var t=n(7294);l.default=function(){return t.createElement("h1",null,"Hello, Gatsby.")}}}]);
+//# sourceMappingURL=component---src-pages-index-js-84594d0328e2c1aec98c.js.map

@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://my-blog/./src/pages/index.js"],"names":[],"mappings":"4HAQA,UANkB,WAChB,OACE","file":"component---src-pages-index-js-84594d0328e2c1aec98c.js","sourcesContent":["import * as React from \"react\"\n\nconst IndexPage = () => {\n  return (\n    <h1>Hello, Gatsby.</h1>\n  )\n}\n\nexport default IndexPage\n"],"sourceRoot":""}
