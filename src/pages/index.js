@@ -1,9 +1,14 @@
-import * as React from "react"
+import * as React from "react";
+// components
+import Layout from "../components/layout";
 
+/** 메인 페이지 */
 const IndexPage = () => {
   return (
-    <h1>Hello, Gatsby.</h1>
-  )
-}
+    <Layout>
+      <h1>Welcome.</h1>
+    </Layout>
+  );
+};
 
-export default IndexPage
+export default IndexPage;
