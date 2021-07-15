@@ -23,6 +23,7 @@ const NamingPage = () => {
         <br />
         자신의 기억을 자랑하지 마라.
       </p>
+      <br />
       <h3>네이밍 작성 방법</h3>
       <h4>클래스 이름</h4>
       <p>
@@ -45,20 +46,34 @@ const NamingPage = () => {
         <br />
         ex) getName, setName, isPosted...
       </p>
+      <br />
       <h4>Example</h4>
       <pre>
         <code>
-          {`function User(id, name, age) {
-  this.getId = function() {
-    return id;
-  },
-  this.getName = function() {
-    return name;
-  },
-  this.getAge = function() {
-    return getAge;
+          {`class User {
+  constructor(id, name, age) {
+    this.id = id;
+    this.name = name;
+    this.age = age;
   }
-}`}
+  getId() {
+    return this.id;
+  }
+  getName() {
+    return this.name;
+  }
+  getAge() {
+    return this.age;
+  }
+}
+
+const member = new User('192589', 'json', '18');
+const isJson = member.name === 'json';  // true
+
+if(isJson) {
+  console.log(member.id); // 192589
+}
+`}
         </code>
       </pre>
     </Layout>
