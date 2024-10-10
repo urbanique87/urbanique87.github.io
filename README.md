@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Personal Blog
+
+Welcome to my personal blog built with Next.js! This blog is designed to share my thoughts, experiences, and insights on various topics.
+
+## Features
+
+- **Static Site Generation (SSG)**: The blog is built using Next.js, allowing for fast performance and SEO-friendly pages.
+- **TypeScript**: The entire codebase is written in TypeScript, providing type safety and enhancing the development experience.
+- **Comment System**: I plan to integrate [Giscus](https://giscus.app/) for a seamless comment system, allowing visitors to engage with my content easily.
+- **Hosted on GitHub Pages**: The blog will be hosted on GitHub Pages, ensuring easy access and deployment.
 
 ## Getting Started
 
-First, run the development server:
+To get started with this blog, follow the instructions below.
 
-```bash
-npm run dev
-# or
+### Prerequisites
+
+- Node.js (version 18.17 or higher)
+- Yarn or npm
+
+### Installation
+
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/urbanique87/urbanique87.github.io.git my-project-name
+   cd my-project-name
+   ```
+
+2. Install dependencies:
+
+   Using Yarn:
+   ```
+   yarn install
+   ```
+
+   Using npm:
+   ```
+   npm install
+   ```
+
+### Development
+
+To run the development server, use the following command:
+
+```
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open your browser and navigate to `http://localhost:3000` to view the blog.
 
-## Learn More
+### Build and Export
 
-To learn more about Next.js, take a look at the following resources:
+To build the project for production and export it as a static site, run:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+yarn build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+or
 
-## Deploy on Vercel
+```
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This will generate the static files in the `out` directory.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Deploy to GitHub Pages
+
+1. Ensure your `out` directory is ready.
+2. Push the contents of the `out` directory to the `gh-pages` branch of your repository.
+3. Set the GitHub Pages source to the `gh-pages` branch in your repository settings.
+
+## Future Plans
+
+- Implement the [Giscus](https://giscus.app/) comment system for better user interaction.
+- Continuously update the blog with new content and features.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+If you have any questions or suggestions, feel free to reach out to me at [jungheeyov@gmail.com](mailto:jungheeyov@gmail.com).
