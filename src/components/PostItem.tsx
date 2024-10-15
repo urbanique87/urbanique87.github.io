@@ -26,8 +26,8 @@ export default function PostItem({ post }: PostItemProps) {
       <Link href={`/blog/${post.slug}`}>
         <PostTitle>{post.title}</PostTitle>
       </Link>
-      <PostDate>{post.date}</PostDate>
       <PostExcerpt>{post.excerpt}</PostExcerpt>
+      <PostDate>{post.date}</PostDate>
     </PostListItem>
   )
 }

@@ -17,6 +17,10 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   width: 800px;
   padding: 0 16px;
@@ -39,8 +43,16 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
+/* TODO: 다크모드 스타일 정의 */
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+} */
+
+@media screen and (max-width: 1024px) {
+  html {
+    /* 태블릿 등 중간 크기 화면에서는 1rem = 14px */
+    font-size: 14px;
   }
 }
