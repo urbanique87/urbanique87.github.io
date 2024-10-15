@@ -59,6 +59,32 @@ async function fetchPostBySlug(slug: string) {
 }
 
 /**
+ * 주어진 슬러그에 따라 메타데이터를 생성하는 함수
+ * @param {Object} params - URL 매개변수
+ * @param {string} params.slug - 포스트의 슬러그
+ * @returns {Promise<{ title: string; description: string }>} - 메타데이터 객체
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const post = await fetchPostBySlug(params.slug)
+
+  if (!post) {
+    return {
+      title: '포스트를 찾을 수 없습니다',
+      description: '이 포스트는 현재 사용할 수 없습니다.',
+    }
+  }
+
+  return {
+    title: post.title,
+    description: post.content.substring(0, 150),
+  }
+}
+
+/**
  * 포스트 페이지
  * @param {Object} params - URL 매개변수
  * @param {string} params.slug - 포스트의 슬러그
