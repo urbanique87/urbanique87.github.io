@@ -8,6 +8,8 @@ import type { PostMetaData } from '@/src/types/Post'
 import { getPosts } from '@/src/lib/getPosts'
 // styles
 import { PostContent, PostDate, PostTitle } from '@/src/styles/Post'
+// components
+import Giscus from '@/src/components/Giscus'
 
 /**
  * Static Generation을 위한 경로 파라미터 생성 함수
@@ -107,6 +109,7 @@ export default async function PostPage({
       <PostTitle>{post.title}</PostTitle>
       <PostDate>{post.date}</PostDate>
       <PostContent>{post.content}</PostContent>
+      <Giscus />
     </main>
   )
 }
