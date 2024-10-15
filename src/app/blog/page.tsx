@@ -1,30 +1,39 @@
-// Dummy data for blog posts
-const posts = [
-  {
-    slug: 'first-post',
-    date: '2024-10-11',
-    title: 'My First Post',
-    summary: 'This is the summary of my first post.',
-  },
-  {
-    slug: 'second-post',
-    date: '2024-10-10',
-    title: 'Another Interesting Topic',
-    summary: 'Exploring new ideas and concepts.',
-  },
-]
+import Link from 'next/link'
 
-export default function Blog() {
+import { getPosts } from '@/src/lib/getPosts'
+
+/**
+ * 포스트 데이터를 가져오는 비동기 함수
+ * @returns {Promise<Array<{
+ *  slug: string;
+ *  title: string;
+ *  date: string;
+ *  excerpt: string;
+ * }>>}
+ */
+async function getStaticPosts() {
+  const posts = await getPosts()
+  return posts
+}
+
+/**
+ * 블로그 목록 페이지
+ * @returns {Promise<JSX.Element>}
+ */
+export default async function Blog() {
+  const posts = await getStaticPosts()
+
   return (
     <main>
       <h1>Blog Posts</h1>
       <ul>
         {posts.map((post) => (
           <li key={post.slug}>
-            <h2>{post.title}</h2>
-            <p>{post.date}</p>
-            <p>{post.summary}</p>
-            <a href={`/posts/${post.slug}`}>Read more</a>
+            <Link href={`/blog/${post.slug}`}>
+              <h2>{post.title}</h2>
+              <p>{post.date}</p>
+              <p>{post.excerpt}</p>
+            </Link>
           </li>
         ))}
       </ul>
