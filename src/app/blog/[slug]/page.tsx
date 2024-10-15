@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { notFound } from 'next/navigation'
 
 import { getPosts } from '@/src/lib/getPosts'
-import type { PostMetaData } from '@/src/types/PostMetaData'
+import type { PostMetaData } from '@/src/types/Post'
 
 /**
  * Static Generation을 위한 경로 파라미터 생성 함수

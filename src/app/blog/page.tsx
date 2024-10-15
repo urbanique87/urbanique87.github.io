@@ -1,6 +1,6 @@
-import Link from 'next/link'
-
 import { getPosts } from '@/src/lib/getPosts'
+
+import RenderPosts from '@/src/components/RenderPosts'
 
 /**
  * 포스트 데이터를 가져오는 비동기 함수
@@ -12,8 +12,13 @@ import { getPosts } from '@/src/lib/getPosts'
  * }>>}
  */
 async function getStaticPosts() {
-  const posts = await getPosts()
-  return posts
+  try {
+    const posts = await getPosts()
+    return posts
+  } catch (error) {
+    console.error('Failed to fetch posts:', error)
+    return [] // 에러 발생 시 빈 배열 반환
+  }
 }
 
 /**
@@ -23,20 +28,13 @@ async function getStaticPosts() {
 export default async function Blog() {
   const posts = await getStaticPosts()
 
+  if (posts.length === 0) {
+    return <p>작성된 글이 없습니다.</p>
+  }
+
   return (
     <main>
-      <h1>Blog Posts</h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.slug}>
-            <Link href={`/blog/${post.slug}`}>
-              <h2>{post.title}</h2>
-              <p>{post.date}</p>
-              <p>{post.excerpt}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <RenderPosts posts={posts} />
     </main>
   )
 }

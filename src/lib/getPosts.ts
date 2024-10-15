@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
-import type { PostMetaData } from '@/src/types/PostMetaData'
+import type { PostMetaData } from '@/src/types/Post'
 
 // 포스트가 저장된 디렉토리 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts')
