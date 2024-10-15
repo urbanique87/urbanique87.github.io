@@ -1,5 +1,6 @@
+// libs
 import { getPosts } from '@/src/lib/getPosts'
-
+// components
 import RenderPosts from '@/src/components/RenderPosts'
 
 /**

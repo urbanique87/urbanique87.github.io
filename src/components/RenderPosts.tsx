@@ -1,5 +1,8 @@
+// types
 import type { PostSummary } from '@/src/types/Post'
+// components
 import PostItem from '@/src/components/PostItem'
+// styles
 import { PostList } from '@/src/styles/Post'
 
 interface RenderPostsProps {

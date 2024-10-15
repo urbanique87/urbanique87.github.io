@@ -1,7 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+// types
 import type { PostSummary } from '@/src/types/Post'
+// styles
 import {
   PostDate,
   PostExcerpt,

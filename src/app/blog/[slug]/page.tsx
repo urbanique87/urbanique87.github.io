@@ -2,8 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { notFound } from 'next/navigation'
+// types
 import type { PostMetaData } from '@/src/types/Post'
+// libs
 import { getPosts } from '@/src/lib/getPosts'
+// styles
 import { PostContent, PostDate, PostTitle } from '@/src/styles/Post'
 
 /**
