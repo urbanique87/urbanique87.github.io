@@ -3,12 +3,13 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* TODO: 다크모드 스타일 정의 */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 html,
 body {
@@ -17,6 +18,9 @@ body {
 }
 
 body {
+  width: 800px;
+  padding: 0 16px;
+  margin: 0 auto;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
