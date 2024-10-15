@@ -29,7 +29,11 @@ export default async function Blog() {
   const posts = await getStaticPosts()
 
   if (posts.length === 0) {
-    return <p>작성된 글이 없습니다.</p>
+    return (
+      <main>
+        <p>작성된 글이 없습니다.</p>
+      </main>
+    )
   }
 
   return (

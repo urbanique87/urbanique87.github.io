@@ -1,6 +1,6 @@
-import PostItem from '@/src/components/PostItem'
-
 import type { PostSummary } from '@/src/types/Post'
+import PostItem from '@/src/components/PostItem'
+import { PostList } from '@/src/styles/Post'
 
 interface RenderPostsProps {
   posts: PostSummary[]
@@ -17,10 +17,10 @@ export default function RenderPosts({ posts }: RenderPostsProps) {
   }
 
   return (
-    <ul>
+    <PostList>
       {posts.map((post) => (
         <PostItem key={post.slug} post={post} />
       ))}
-    </ul>
+    </PostList>
   )
 }

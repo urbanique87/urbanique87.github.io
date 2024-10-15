@@ -2,9 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { notFound } from 'next/navigation'
-
-import { getPosts } from '@/src/lib/getPosts'
 import type { PostMetaData } from '@/src/types/Post'
+import { getPosts } from '@/src/lib/getPosts'
+import { PostContent, PostDate, PostTitle } from '@/src/styles/Post'
 
 /**
  * Static Generation을 위한 경로 파라미터 생성 함수
@@ -74,10 +74,10 @@ export default async function PostPage({
   }
 
   return (
-    <div>
-      <h1>{post.title}</h1>
-      <p>{post.date}</p>
-      <div>{post.content}</div>
-    </div>
+    <main>
+      <PostTitle>{post.title}</PostTitle>
+      <PostDate>{post.date}</PostDate>
+      <PostContent>{post.content}</PostContent>
+    </main>
   )
 }

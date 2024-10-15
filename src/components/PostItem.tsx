@@ -1,8 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-
 import type { PostSummary } from '@/src/types/Post'
+import {
+  PostDate,
+  PostExcerpt,
+  PostListItem,
+  PostTitle,
+} from '@/src/styles/Post'
 
 interface PostItemProps {
   post: PostSummary
@@ -15,12 +20,12 @@ interface PostItemProps {
  */
 export default function PostItem({ post }: PostItemProps) {
   return (
-    <li>
+    <PostListItem>
       <Link href={`/blog/${post.slug}`}>
-        <h2>{post.title}</h2>
+        <PostTitle>{post.title}</PostTitle>
       </Link>
-      <p>{post.date}</p>
-      <p>{post.excerpt}</p>
-    </li>
+      <PostDate>{post.date}</PostDate>
+      <PostExcerpt>{post.excerpt}</PostExcerpt>
+    </PostListItem>
   )
 }
