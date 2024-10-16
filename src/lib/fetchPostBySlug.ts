@@ -1,9 +1,23 @@
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
-import { serialize } from 'next-mdx-remote/serialize'
+import { compileMDX } from 'next-mdx-remote/rsc'
 // types
 import type { PostMetaData, PostDetail } from '@/src/types/post.types'
+// utils
+import { convertMDXToPlainText } from '@/src/utils/mdxUtils'
+
+/**
+ * frontmatter가 PostMetaData 타입인지 확인하는 타입 가드 함수
+ * @param {Record<string, unknown>} frontmatter - 확인할 frontmatter 객체
+ */
+function isValidPostMetaData(
+  frontmatter: Record<string, unknown>
+): frontmatter is PostMetaData {
+  return (
+    typeof frontmatter.title === 'string' &&
+    typeof frontmatter.date === 'string'
+  )
+}
 
 /**
  * slug에 따라 포스트 내용을 가져오는 비동기 함수
@@ -19,23 +33,36 @@ export async function fetchPostBySlug(
 
   try {
     const fileContents = fs.readFileSync(fullPath, 'utf-8')
-    // 파일 내용을 gray-matter로 파싱하여 메타데이터와 본문 분리
-    const { data, content } = matter(fileContents)
-    const metadata = data as PostMetaData
-    // ISO 날짜 문자열을 YYYY-MM-DD 형식으로 변환
-    const formattedDate = new Date(metadata.date).toISOString().split('T')[0]
 
-    const mdxSource = await serialize(content)
+    const { content, frontmatter } = await compileMDX({
+      source: fileContents,
+      options: {
+        parseFrontmatter: true,
+        mdxOptions: {
+          remarkPlugins: [],
+          rehypePlugins: [],
+        },
+      },
+    })
+
+    if (!isValidPostMetaData(frontmatter)) {
+      throw new Error('잘못된 프론트매터 형식입니다.')
+    }
+
+    const plainContent = convertMDXToPlainText(fileContents)
+
+    // ISO 날짜 문자열을 YYYY-MM-DD 형식으로 변환
+    const formattedDate = new Date(frontmatter.date).toISOString().split('T')[0]
 
     return {
-      title: metadata.title,
+      title: frontmatter.title,
       date: formattedDate,
-      content: mdxSource,
-      rawContent: content,
+      content,
+      plainContent,
     }
   } catch (error) {
     // TODO: 예외 처리
-    console.error(error)
+    console.error(`Error fetching post ${slug}:`, error)
     // 파일이 없거나 읽기 오류가 발생하면 null 반환
     return null
   }

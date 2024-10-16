@@ -10,8 +10,6 @@ import {
   PostListItem,
   PostTitle,
 } from '@/src/styles/Post'
-// utils
-import { convertMarkdownToPlainText } from '@/src/utils/mdxUtils'
 
 interface PostItemProps {
   post: PostSummary
@@ -23,14 +21,12 @@ interface PostItemProps {
  * @param {PostSummary} props.post - 포스트 간단 정보
  * @param {string} props.post.slug - 포스트 slug
  * @param {string} props.post.title - 포스트 제목
- * @param {string} props.post.rawContent - 포스트 원본 내용
+ * @param {string} props.post.plainContent - 포스트 원본 내용
  * @param {string} props.post.date - 포스트 작성일
  */
 export default function PostItem({ post }: PostItemProps): JSX.Element {
-  const { slug, title, rawContent, date } = post
-
-  // 마크다운을 일반 텍스트로 변환
-  const excerpt = convertMarkdownToPlainText(rawContent).substring(0, 150)
+  const { slug, title, plainContent, date } = post
+  const excerpt = plainContent.substring(0, 100)
 
   return (
     <PostListItem>

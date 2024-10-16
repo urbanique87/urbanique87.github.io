@@ -1,19 +1,20 @@
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import type { ReactElement } from 'react'
 
-export interface PostBase {
+export interface PostBase<T = unknown> {
   title: string
   date: string // ISO 형식
+  content: ReactElement<T>
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface PostMetaData extends PostBase {}
+export interface PostMetaData extends PostBase {
+  [key: string]: unknown
+}
 
 export interface PostSummary extends PostBase {
   slug: string
-  rawContent: string // 원본 콘텐츠 (Markdown 형식)
+  plainContent: string
 }
 
 export interface PostDetail extends PostBase {
-  content: MDXRemoteSerializeResult
-  rawContent: string // 원본 콘텐츠 (Markdown 형식)
+  plainContent: string
 }
