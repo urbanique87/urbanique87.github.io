@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { getPosts } from '@/src/lib/getPosts'
 import { fetchPostBySlug } from '@/src/lib/fetchPostBySlug'
 import { generatePostMetadata } from '@/src/lib/generatePostMetadata'
+// components
 import RenderPost from '@/src/components/RenderPost'
 
 /**

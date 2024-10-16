@@ -29,7 +29,7 @@ export function getPosts(): PostSummary[] {
       slug,
       title: metadata.title,
       date: formattedDate,
-      excerpt: content.substring(0, 100), // 본문 내용의 처음 100자를 발췌
+      rawContent: content,
     }
   })
 

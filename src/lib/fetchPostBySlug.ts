@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { serialize } from 'next-mdx-remote/serialize'
 // types
 import type { PostMetaData, PostDetail } from '@/src/types/post.types'
 
@@ -21,14 +22,16 @@ export async function fetchPostBySlug(
     // 파일 내용을 gray-matter로 파싱하여 메타데이터와 본문 분리
     const { data, content } = matter(fileContents)
     const metadata = data as PostMetaData
-
     // ISO 날짜 문자열을 YYYY-MM-DD 형식으로 변환
     const formattedDate = new Date(metadata.date).toISOString().split('T')[0]
+
+    const mdxSource = await serialize(content)
 
     return {
       title: metadata.title,
       date: formattedDate,
-      content,
+      content: mdxSource,
+      rawContent: content,
     }
   } catch (error) {
     // TODO: 예외 처리

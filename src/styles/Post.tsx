@@ -30,8 +30,3 @@ export const PostExcerpt = styled.p`
   font-size: 0.875rem;
   color: #444;
 `
-
-export const PostContent = styled.p`
-  margin: 0.5rem 0 0;
-  font-size: 0.875rem;
-`
