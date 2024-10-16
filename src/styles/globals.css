@@ -1,6 +1,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --layout-max-width: 800px;
 }
 
 /* TODO: 다크모드 스타일 정의 */
@@ -22,14 +23,17 @@ html {
 }
 
 body {
-  width: 800px;
-  padding: 0 16px;
-  margin: 0 auto;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 32px 16px 0;
 }
 
 * {
