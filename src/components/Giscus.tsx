@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 /**
  *
@@ -9,7 +9,7 @@ import React, { useEffect, useRef } from 'react'
  *
  * @returns {JSX.Element}
  */
-export default function Giscus() {
+export default function Giscus(): JSX.Element {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

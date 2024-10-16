@@ -1,18 +1,14 @@
+// types
+import type { PostSummary } from '@/src/types/post.types'
 // libs
 import { getPosts } from '@/src/lib/getPosts'
 // components
-import RenderPosts from '@/src/components/RenderPosts'
+import RenderPostList from '@/src/components/RenderPostList'
 
 /**
  * 포스트 데이터를 가져오는 비동기 함수
- * @returns {Promise<Array<{
- *  slug: string;
- *  title: string;
- *  date: string;
- *  excerpt: string;
- * }>>}
  */
-async function getStaticPosts() {
+async function getStaticPosts(): Promise<Array<PostSummary>> {
   try {
     const posts = await getPosts()
     return posts
@@ -24,9 +20,8 @@ async function getStaticPosts() {
 
 /**
  * 블로그 목록 페이지
- * @returns {Promise<JSX.Element>}
  */
-export default async function Blog() {
+export default async function Blog(): Promise<JSX.Element> {
   const posts = await getStaticPosts()
 
   if (posts.length === 0) {
@@ -39,7 +34,7 @@ export default async function Blog() {
 
   return (
     <main>
-      <RenderPosts posts={posts} />
+      <RenderPostList posts={posts} />
     </main>
   )
 }

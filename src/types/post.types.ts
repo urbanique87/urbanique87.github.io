@@ -10,3 +10,7 @@ export interface PostSummary extends PostBase {
   slug: string
   excerpt: string
 }
+
+export interface PostDetail extends PostBase {
+  content: string
+}

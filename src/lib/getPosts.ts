@@ -2,21 +2,15 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 // types
-import type { PostMetaData } from '@/src/types/Post'
+import type { PostMetaData, PostSummary } from '@/src/types/post.types'
 
 // 포스트가 저장된 디렉토리 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts')
 
 /**
  * 지정된 디렉토리에서 모든 포스트의 메타데이터를 가져오는 함수
- * @returns {Array<{
- *  slug: string;
- *  title: string;
- *  date: string;
- *  excerpt: string;
- * }>}
  */
-export function getPosts() {
+export function getPosts(): PostSummary[] {
   const fileNames = fs.readdirSync(postsDirectory)
 
   const posts = fileNames.map((fileName) => {
