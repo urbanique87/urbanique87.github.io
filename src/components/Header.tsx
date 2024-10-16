@@ -4,24 +4,40 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styled from '@emotion/styled'
 
+const LINKS = {
+  BLOG: '/blog',
+  ABOUT: '/about',
+}
+
+type LinkItem = {
+  label: string
+  path: string
+  isActive: boolean
+}
+
 /**
  * 블로그 헤더 컴포넌트
  */
 const Header = () => {
   const pathname = usePathname()
 
-  // 경로와 활성 여부를 관리하는 객체
-  const links = {
-    '/blog': { label: 'blog', isActive: pathname.startsWith('/blog') },
-    '/about': { label: 'about', isActive: pathname.startsWith('/about') },
-  }
+  // 링크 항목 목록을 생성한다.
+  const links: LinkItem[] = Object.entries(LINKS).map(([key, link]) => ({
+    label: key,
+    path: link,
+    isActive: pathname.startsWith(link),
+  }))
 
   return (
     <HeaderContainer>
       <HeaderInner>
-        {Object.entries(links).map(([path, { label, isActive }]) => (
-          <StyledNavLink key={path} href={path} isActive={isActive}>
-            {label}
+        {links.map((link) => (
+          <StyledNavLink
+            key={link.path}
+            href={link.path}
+            isActive={link.isActive}
+          >
+            {link.label}
           </StyledNavLink>
         ))}
       </HeaderInner>
@@ -48,7 +64,7 @@ const HeaderInner = styled.div`
 const StyledNavLink = styled(Link, {
   shouldForwardProp: (prop) => prop !== 'isActive', // isActive prop 제외
 })<{ isActive: boolean }>`
-  position: relative; /* 상대 위치 지정 */
+  position: relative;
   margin: 0 24px 0 0;
   color: #333;
   font-size: 1.5rem;
@@ -60,22 +76,22 @@ const StyledNavLink = styled(Link, {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -4px; /* 텍스트의 2px 아래에 위치 */
-    width: 100%; /* 밑줄의 기본 너비 */
-    height: 4px; /* 밑줄 두께 */
+    bottom: -4px;
+    width: 100%;
+    height: 4px;
   }
 
   ${({ isActive }) =>
     isActive &&
     `
     &:after {
-      background-color: #333; /* 활성화 상태의 밑줄 색상 */
+      background-color: #333;
     }
   `}
 
   @media (hover: hover) {
     &:hover:after {
-      background-color: #333; /* hover 상태의 밑줄 색상 */
+      background-color: #333;
     }
   }
 `
