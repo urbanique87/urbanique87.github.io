@@ -6,7 +6,8 @@ Welcome to my personal blog built with Next.js! This blog is designed to share m
 
 - **Static Site Generation (SSG)**: The blog is built using Next.js, allowing for fast performance and SEO-friendly pages.
 - **TypeScript**: The entire codebase is written in TypeScript, providing type safety and enhancing the development experience.
-- **Comment System**: I plan to integrate [Giscus](https://giscus.app/) for a seamless comment system, allowing visitors to engage with my content easily.
+- **MDX Support**: I use `next-mdx-remote` to handle MDX content, allowing me to write React components alongside markdown.
+- **Comment System**: I have integrated [Giscus](https://giscus.app/) for a seamless comment system, allowing visitors to engage with my content easily.
 - **Hosted on GitHub Pages**: The blog will be hosted on GitHub Pages, ensuring easy access and deployment.
 
 ## Getting Started
@@ -79,8 +80,7 @@ This will generate the static files in the `out` directory.
 
 ## Future Plans
 
-- Implement the [Giscus](https://giscus.app/) comment system for better user interaction.
-- Continuously update the blog with new content and features.
+- Plan to Continuously update the blog with new content and features.
 
 ## License
 
