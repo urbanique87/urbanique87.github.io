@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 
 const LINKS = {
   BLOG: '/blog',
@@ -30,17 +30,17 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <HeaderInner>
+      <HeaderWrapper>
         {links.map((link) => (
           <StyledNavLink
             key={link.path}
             href={link.path}
-            isActive={link.isActive}
+            $isActive={link.isActive}
           >
             {link.label}
           </StyledNavLink>
         ))}
-      </HeaderInner>
+      </HeaderWrapper>
     </HeaderContainer>
   )
 }
@@ -48,28 +48,30 @@ const Header = () => {
 export default Header
 
 const HeaderContainer = styled.header`
-  display: flex;
-  align-items: center;
-  height: 60px;
-  border-bottom: 1px solid #f5f6f8;
+  border-bottom: 1px solid var(--secondary);
 `
 
-const HeaderInner = styled.div`
-  max-width: var(--layout-max-width);
+const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 0 16px;
+  max-width: var(--layout-max-width);
+  height: 60px;
+  padding: 0 ${({ theme }) => theme.spacing(4)};
   margin: 0 auto;
 `
 
-const StyledNavLink = styled(Link, {
-  shouldForwardProp: (prop) => prop !== 'isActive', // isActive prop 제외
-})<{ isActive: boolean }>`
+const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   position: relative;
   margin: 0 24px 0 0;
-  color: #333;
-  font-size: 1.5rem;
+  color: var(--primary);
+  font-size: ${({ theme }) => theme.fontSizes.xlarge};
   font-weight: bold;
   text-transform: uppercase;
+
+  &:last-child {
+    margin: 0 0;
+  }
 
   &:after {
     content: '';
@@ -81,17 +83,17 @@ const StyledNavLink = styled(Link, {
     height: 4px;
   }
 
-  ${({ isActive }) =>
-    isActive &&
+  ${({ $isActive }) =>
+    $isActive &&
     `
     &:after {
-      background-color: #333;
+      background-color: var(--primary);
     }
   `}
 
   @media (hover: hover) {
     &:hover:after {
-      background-color: #333;
+      background-color: var(--primary);
     }
   }
 `
