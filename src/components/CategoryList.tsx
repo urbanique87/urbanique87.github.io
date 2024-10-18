@@ -2,30 +2,27 @@
 
 import Link from 'next/link'
 import { styled } from 'styled-components'
-// libs
-import { PostSummary } from '@/src/types/post.types'
+// types
+import { PostCountByCategory } from '@/src/types/post.types'
 
 interface CategoryListProps {
-  posts: PostSummary[]
+  categories: PostCountByCategory[]
+  totalPostCount: number
 }
 
 /**
  * 블로그 카테고리 리스트
  */
-const CategoryList = ({ posts }: CategoryListProps) => {
-  const uniqueCategories = Array.from(
-    new Set(posts.map((post) => post.category))
-  )
-
+const CategoryList = ({ categories, totalPostCount }: CategoryListProps) => {
   return (
     <Navigation>
       <List>
         <Item>
-          <Link href="/blog">All</Link>
+          <Link href="/blog">All ({totalPostCount})</Link>
         </Item>
-        {uniqueCategories.map((category) => (
+        {categories.map(({ category, count }) => (
           <Item key={category}>
-            <Link href={`/blog/${category}`}>{category}</Link>
+            <Link href={`/blog/${category}`}>{`${category} (${count})`}</Link>
           </Item>
         ))}
       </List>
@@ -42,10 +39,6 @@ const Navigation = styled.nav`
 const List = styled.ul`
   padding: 0;
   list-style: none;
-
-  li {
-    display: inline-block;
-  }
 `
 
 const Item = styled.li`

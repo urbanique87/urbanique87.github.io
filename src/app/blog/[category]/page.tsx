@@ -3,7 +3,15 @@ import { notFound } from 'next/navigation'
 import CategoryList from '@/src/components/CategoryList'
 import RenderPostList from '@/src/components/RenderPostList'
 // libs
-import { getPosts } from '@/src/lib/getPosts'
+import { getPosts } from '@/src/lib/postService'
+import { getCategoriesWithPostCount } from '@/src/lib/categoryService'
+import { filterPostsByCategory, isValidCategory } from '@/src/lib/category'
+
+interface CategoryPageParams {
+  params: {
+    category: string
+  }
+}
 
 /**
  * Static Generation을 위한 경로 파라미터 생성 함수
@@ -13,10 +21,15 @@ export async function generateStaticParams(): Promise<
     category: string
   }[]
 > {
-  const posts = await getPosts()
-  return posts.map((post) => ({
-    category: post.category,
-  }))
+  try {
+    const { categories } = await getCategoriesWithPostCount()
+    return categories.map(({ category }) => ({
+      category,
+    }))
+  } catch (error) {
+    console.error('Error generating static params:', error)
+    return []
+  }
 }
 
 /**
@@ -24,23 +37,33 @@ export async function generateStaticParams(): Promise<
  */
 export default async function CategoryPostsPage({
   params,
-}: {
-  params: { category: string }
-}) {
-  const posts = await getPosts()
-  const categories = new Set(posts.map((post) => post.category))
-  if (!categories.has(params.category)) {
-    return notFound()
+}: CategoryPageParams): Promise<JSX.Element> {
+  try {
+    const [{ categories, totalPostCount }, posts] = await Promise.all([
+      getCategoriesWithPostCount(),
+      getPosts(),
+    ])
+
+    if (!isValidCategory(categories, params.category)) {
+      return notFound()
+    }
+
+    // 현재 카테고리의 포스트만 필터링
+    const filteredPosts = filterPostsByCategory(posts, params.category)
+
+    return (
+      <main>
+        <CategoryList categories={categories} totalPostCount={totalPostCount} />
+        <RenderPostList posts={filteredPosts} />
+      </main>
+    )
+  } catch (error) {
+    console.error('Error in CategoryPostsPage:', error)
+
+    return (
+      <main>
+        <p>데이터를 불러오는 중 오류가 발생했습니다.</p>
+      </main>
+    )
   }
-
-  const filteredPosts = posts.filter(
-    (post) => post.category === params.category
-  )
-
-  return (
-    <main>
-      <CategoryList posts={posts} />
-      <RenderPostList posts={filteredPosts} />
-    </main>
-  )
 }

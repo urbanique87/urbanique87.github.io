@@ -3,11 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
-
-const LINKS = {
-  BLOG: '/blog',
-  ABOUT: '/about',
-}
+// constants
+import { LINKS } from '@/src/config/links'
 
 type LinkItem = {
   label: string
@@ -20,7 +17,6 @@ type LinkItem = {
  */
 const Header = () => {
   const pathname = usePathname()
-
   // 링크 항목 목록을 생성한다.
   const links: LinkItem[] = Object.entries(LINKS).map(([key, link]) => ({
     label: key,

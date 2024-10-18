@@ -1,20 +1,20 @@
 'use client'
 
 // types
-import type { PostDetail } from '@/src/types/post.types'
+import type { PostDetailContent } from '@/src/types/post.types'
 // components
 import Giscus from '@/src/components/Giscus'
 // styles
 import { PostDate, PostTitle } from '@/src/styles/Post'
 
 interface RenderPostProps {
-  post: PostDetail
+  post: PostDetailContent
 }
 
 /**
  * 포스트 렌더링 컴포넌트
  * @param {RenderPostProps} props - 컴포넌트 props
- * @param {PostDetail} props.post - 렌더링할 포스트 상세 정보
+ * @param {PostDetailContent} props.post - 렌더링할 포스트 상세 정보
  * @param {string} props.post.title - 포스트 제목
  * @param {string} props.post.date - 포스트 작성 날짜
  * @param {import('next-mdx-remote').MDXRemoteSerializeResult} props.post.content - 포스트 내용

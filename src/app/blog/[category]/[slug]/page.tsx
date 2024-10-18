@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 // libs
-import { getPosts } from '@/src/lib/getPosts'
-import { fetchPostBySlug } from '@/src/lib/fetchPostBySlug'
+import { getPosts } from '@/src/lib/postService'
+import { fetchPostBySlug } from '@/src/lib/postService'
 import { generatePostMetadata } from '@/src/lib/generatePostMetadata'
 // components
 import RenderPost from '@/src/components/RenderPost'

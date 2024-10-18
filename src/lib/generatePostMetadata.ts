@@ -1,5 +1,5 @@
 // libs
-import { fetchPostBySlug } from '@/src/lib/fetchPostBySlug'
+import { fetchPostBySlug } from '@/src/lib/postService'
 
 /**
  * 주어진 슬러그에 따라 메타데이터를 생성하는 함수
