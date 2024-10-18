@@ -31,15 +31,17 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        {links.map((link) => (
-          <StyledNavLink
-            key={link.path}
-            href={link.path}
-            $isActive={link.isActive}
-          >
-            {link.label}
-          </StyledNavLink>
-        ))}
+        <nav>
+          <List>
+            {links.map((link) => (
+              <Item key={link.path}>
+                <StyledNavLink href={link.path} $isActive={link.isActive}>
+                  {link.label}
+                </StyledNavLink>
+              </Item>
+            ))}
+          </List>
+        </nav>
       </HeaderWrapper>
     </HeaderContainer>
   )
@@ -61,17 +63,26 @@ const HeaderWrapper = styled.div`
   margin: 0 auto;
 `
 
+const List = styled.ul`
+  padding: 0;
+  list-style: none;
+`
+
+const Item = styled.li`
+  display: inline-block;
+  margin-right: 12px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+`
+
 const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   position: relative;
-  margin: 0 24px 0 0;
   color: var(--primary);
   font-size: ${({ theme }) => theme.fontSizes.xlarge};
   font-weight: bold;
   text-transform: uppercase;
-
-  &:last-child {
-    margin: 0 0;
-  }
 
   &:after {
     content: '';

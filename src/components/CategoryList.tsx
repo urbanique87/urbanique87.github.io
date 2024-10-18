@@ -18,24 +18,30 @@ const CategoryList = ({ posts }: CategoryListProps) => {
   )
 
   return (
-    <List>
-      <Item>
-        <Link href="/blog">All</Link>
-      </Item>
-      {uniqueCategories.map((category) => (
-        <Item key={category}>
-          <Link href={`/blog/${category}`}>{category}</Link>
+    <Navigation>
+      <List>
+        <Item>
+          <Link href="/blog">All</Link>
         </Item>
-      ))}
-    </List>
+        {uniqueCategories.map((category) => (
+          <Item key={category}>
+            <Link href={`/blog/${category}`}>{category}</Link>
+          </Item>
+        ))}
+      </List>
+    </Navigation>
   )
 }
 
 export default CategoryList
 
-const List = styled.ul`
-  list-style: none;
+const Navigation = styled.nav`
   margin-bottom: 24px;
+`
+
+const List = styled.ul`
+  padding: 0;
+  list-style: none;
 
   li {
     display: inline-block;
