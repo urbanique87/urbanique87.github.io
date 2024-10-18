@@ -24,12 +24,13 @@ function isValidPostMetaData(
  * @param {string} slug - 가져올 포스트의 슬러그
  */
 export async function fetchPostBySlug(
+  category: string,
   slug: string
 ): Promise<PostDetail | null> {
   // 포스트가 저장된 디렉토리 경로
   const postsDirectory = path.join(process.cwd(), 'src/posts')
   // 특정 슬러그에 해당하는 파일 경로 생성
-  const fullPath = path.join(postsDirectory, `${slug}.mdx`)
+  const fullPath = path.join(postsDirectory, category, `${slug}.mdx`)
 
   try {
     const fileContents = fs.readFileSync(fullPath, 'utf-8')
@@ -55,6 +56,7 @@ export async function fetchPostBySlug(
     const formattedDate = new Date(frontmatter.date).toISOString().split('T')[0]
 
     return {
+      category,
       title: frontmatter.title,
       date: formattedDate,
       content,
@@ -62,7 +64,7 @@ export async function fetchPostBySlug(
     }
   } catch (error) {
     // TODO: 예외 처리
-    console.error(`Error fetching post ${slug}:`, error)
+    console.error(`Error fetching post ${category}/${slug}:`, error)
     // 파일이 없거나 읽기 오류가 발생하면 null 반환
     return null
   }

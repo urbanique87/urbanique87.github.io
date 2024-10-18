@@ -5,11 +5,14 @@ import { fetchPostBySlug } from '@/src/lib/fetchPostBySlug'
  * 주어진 슬러그에 따라 메타데이터를 생성하는 함수
  * @param {string} slug - 포스트 slug
  */
-export async function generatePostMetadata(slug: string): Promise<{
+export async function generatePostMetadata(
+  category: string,
+  slug: string
+): Promise<{
   title: string
   description: string
 }> {
-  const post = await fetchPostBySlug(slug)
+  const post = await fetchPostBySlug(category, slug)
 
   if (!post) {
     return {

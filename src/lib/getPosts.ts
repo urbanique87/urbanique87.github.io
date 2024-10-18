@@ -25,49 +25,57 @@ function isValidPostMetaData(
 export async function getPosts(): Promise<PostSummary[]> {
   // 포스트가 저장된 디렉토리 경로
   const postsDirectory = path.join(process.cwd(), 'src/posts')
-  const fileNames = fs.readdirSync(postsDirectory)
+  //   const fileNames = fs.readdirSync(postsDirectory)
+  const categories = fs.readdirSync(postsDirectory)
 
   const posts = await Promise.all(
-    fileNames.map(async (fileName) => {
-      // 파일 이름에서 .mdx 확장자를 제거하여 슬러그 생성
-      const slug = fileName.replace(/\.mdx$/, '')
-      const fullPath = path.join(postsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf-8')
+    categories.flatMap(async (category) => {
+      const categoryPath = path.join(postsDirectory, category)
 
-      const { content, frontmatter } = await compileMDX({
-        source: fileContents,
-        options: {
-          parseFrontmatter: true,
-          mdxOptions: {
-            remarkPlugins: [],
-            rehypePlugins: [],
-          },
-        },
-      })
+      const fileNames = fs.readdirSync(categoryPath)
 
-      if (!isValidPostMetaData(frontmatter)) {
-        throw new Error('잘못된 프론트매터 형식입니다.')
-      }
+      return await Promise.all(
+        fileNames.map(async (fileName) => {
+          const slug = `${fileName.replace(/\.mdx$/, '')}`
+          const fullPath = path.join(categoryPath, fileName)
+          const fileContents = fs.readFileSync(fullPath, 'utf-8')
 
-      const plainContent = convertMDXToPlainText(fileContents)
+          const { content, frontmatter } = await compileMDX({
+            source: fileContents,
+            options: {
+              parseFrontmatter: true,
+              mdxOptions: {
+                remarkPlugins: [],
+                rehypePlugins: [],
+              },
+            },
+          })
 
-      // ISO 날짜 문자열을 YYYY-MM-DD 형식으로 변환
-      const formattedDate = new Date(frontmatter.date)
-        .toISOString()
-        .split('T')[0]
+          if (!isValidPostMetaData(frontmatter)) {
+            throw new Error('잘못된 프론트매터 형식입니다.')
+          }
 
-      return {
-        slug,
-        title: frontmatter.title,
-        date: formattedDate,
-        content,
-        plainContent,
-      }
+          const plainContent = convertMDXToPlainText(fileContents)
+
+          const formattedDate = new Date(frontmatter.date)
+            .toISOString()
+            .split('T')[0]
+
+          return {
+            category,
+            slug,
+            title: frontmatter.title,
+            date: formattedDate,
+            content,
+            plainContent,
+          }
+        })
+      )
     })
   )
 
   // 날짜를 기준으로 내림차순 정렬하여 최신 포스트가 최상위에 있도록 반환
-  return posts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
+  return posts
+    .flat()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }

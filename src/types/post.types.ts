@@ -4,6 +4,7 @@ export interface PostBase<T = unknown> {
   title: string
   date: string // ISO 형식
   content: ReactElement<T>
+  category: string
 }
 
 export interface PostMetaData extends PostBase {

@@ -11,12 +11,14 @@ import RenderPost from '@/src/components/RenderPost'
  */
 export async function generateStaticParams(): Promise<
   {
+    category: string
     slug: string
   }[]
 > {
   const posts = await getPosts()
   return posts.map((post) => ({
     slug: post.slug,
+    category: post.category,
   }))
 }
 
@@ -28,12 +30,12 @@ export async function generateStaticParams(): Promise<
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: { category: string; slug: string }
 }): Promise<{
   title: string
   description: string
 }> {
-  return generatePostMetadata(params.slug)
+  return generatePostMetadata(params.category, params.slug)
 }
 
 /**
@@ -44,13 +46,13 @@ export async function generateMetadata({
 export default async function PostPage({
   params,
 }: {
-  params: { slug: string }
+  params: { category: string; slug: string }
 }): Promise<JSX.Element> {
-  const post = await fetchPostBySlug(params.slug)
+  const post = await fetchPostBySlug(params.category, params.slug)
 
   // 포스트가 존재하지 않을 경우 404 페이지로 리디렉션
   if (!post) {
-    notFound()
+    return notFound()
   }
 
   return (

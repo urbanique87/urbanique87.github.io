@@ -25,12 +25,12 @@ interface PostItemProps {
  * @param {string} props.post.date - 포스트 작성일
  */
 export default function PostItem({ post }: PostItemProps): JSX.Element {
-  const { slug, title, plainContent, date } = post
+  const { category, slug, title, plainContent, date } = post
   const excerpt = plainContent.substring(0, 100)
 
   return (
     <PostListItem>
-      <Link href={`/blog/${slug}`}>
+      <Link href={`/blog/${category}/${slug}`}>
         <PostTitle>{title}</PostTitle>
       </Link>
       <PostExcerpt>{excerpt}</PostExcerpt>

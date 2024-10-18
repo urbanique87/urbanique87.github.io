@@ -24,7 +24,7 @@ export default function RenderPostList({
   return (
     <PostList>
       {posts.map((post) => (
-        <PostItem key={post.slug} post={post} />
+        <PostItem key={post.title} post={post} />
       ))}
     </PostList>
   )
