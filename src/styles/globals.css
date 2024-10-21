@@ -2,7 +2,8 @@
   --white: #ffffff;
   --black: #000000;
 
-  --background: var(--white);
+  /* --background: var(--white); */
+  --background: #ffffff;
   --foreground: var(--black);
 
   --primary: #0f172a;
@@ -15,9 +16,10 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--black);
-    --foreground: var(--white);
+    /* --foreground: var(--white); */
+    --foreground: #f5f5f5;
 
-    --primary: #f8fafc;
+    --primary: #f5f5f5;
     --secondary: #3d3d3d;
   }
 }
@@ -66,5 +68,55 @@ a {
 @media screen and (max-width: 1024px) {
   html {
     font-size: 14px; /* 태블릿 등 중간 크기 화면에서는 1rem = 14px */
+  }
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+pre [data-line] {
+  padding: 0 1rem;
+}
+
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+
+  display: inline-block;
+  width: 0.75rem;
+  margin-right: 2rem;
+  text-align: right;
+  color: gray;
+}
+
+code[data-line-numbers-max-digits='2'] > [data-line]::before {
+  width: 1.25rem;
+}
+
+code[data-line-numbers-max-digits='3'] > [data-line]::before {
+  width: 1.75rem;
+}
+
+code[data-line-numbers-max-digits='4'] > [data-line]::before {
+  width: 2.25rem;
+}
+
+code[data-theme*=' '],
+code[data-theme*=' '] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  code[data-theme*=' '],
+  code[data-theme*=' '] span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
   }
 }

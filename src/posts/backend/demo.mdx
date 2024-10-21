@@ -3,14 +3,116 @@ title: Backend - Demo Page
 date: 2024-10-01
 ---
 
-# Welcome to my Demo page!
+# MDX 호환 마크다운 가이드
 
-This is some **bold** and _italics_ text.
+## 1. 제목 (Headers)
+# 제목 1
+## 제목 2
+### 제목 3
+#### 제목 4
+##### 제목 5
+###### 제목 6
 
-This is a list in markdown:
+## 2. 강조 (Emphasis)
+*이탤릭체*  
+_이탤릭체_  
+**볼드체**  
+__볼드체__  
+***이탤릭+볼드체***  
+~~취소선~~
 
-- One
-- Two
-- Three
+## 3. 목록 (Lists)
 
-Checkout my React component:
+### 순서 있는 목록
+1. 첫 번째 항목
+2. 두 번째 항목
+   1. 중첩된 항목
+   2. 중첩된 항목
+3. 세 번째 항목
+
+### 순서 없는 목록
+* 항목 1
+* 항목 2
+  * 중첩된 항목
+  * 중첩된 항목
+* 항목 3
+
+- 대시로도
+- 만들 수 있습니다
+  - 중첩
+  - 가능
+
+## 4. 링크 (Links)
+[예시 링크](https://www.example.com)  
+[타이틀이 있는 링크](https://www.example.com "예시 사이트")
+
+## 5. 이미지 (Images)
+![대체 텍스트](image.jpg)
+
+## 6. 인용구 (Blockquotes)
+> 첫 번째 인용구
+>> 중첩된 인용구
+>>> 더 중첩된 인용구
+
+## 7. 코드 (Code)
+인라인 코드는 `이렇게` 작성합니다.
+
+```python showLineNumbers /블록/
+# 파이썬 코드 블록
+def hello_world():
+    print("Hello, World!")
+```
+
+```javascript showLineNumbers
+// 자바스크립트 코드 블록
+function helloWorld() {
+    console.log("Hello, World!");
+}
+```
+
+## 8. 표 (Tables)
+| 제목 1 | 제목 2 | 제목 3 |
+|:--------|:--------:|--------:|
+| 왼쪽 정렬 | 가운데 정렬 | 오른쪽 정렬 |
+| 내용 11 | 내용 12 | 내용 13 |
+| 내용 21 | 내용 22 | 내용 23 |
+
+## 9. 수평선 (Horizontal Rules)
+
+---
+***
+___
+
+## 10. 체크리스트
+- [x] 완료된 항목
+- [ ] 미완료 항목
+- [x] 또 다른 완료 항목
+
+## 11. 중요 텍스트 강조
+> **Note**
+> 이것은 중요한 노트입니다.
+
+> **Warning**
+> 이것은 경고 메시지입니다.
+
+## 12. 코드 하이라이팅
+```jsx showLineNumbers /example/
+// React 컴포넌트 예시
+export default function Example() {
+  return (
+    <div className="example">
+      <h1>Hello MDX!</h1>
+    </div>
+  );
+}
+
+console.log('hewwo') // [!code --]
+console.log('hello') // [!code ++]
+```
+
+## 13. 이스케이프 문자
+\* 별표를 그대로 표시  
+\# 해시를 그대로 표시
+
+
+---

@@ -1,6 +1,11 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 import { compileMDX } from 'next-mdx-remote/rsc'
+import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
+import rehypeSlug from 'rehype-slug'
+import rehypePrettyCode from 'rehype-pretty-code'
+import { transformerNotationDiff } from '@shikijs/transformers'
 // types
 import type { CompileMDXResult } from 'next-mdx-remote/rsc'
 import type {
@@ -34,13 +39,24 @@ function isValidPostMetadata(
 async function readMDXFile(
   fileContents: string
 ): Promise<CompileMDXResult<Record<string, unknown>>> {
+  const options = {
+    theme: {
+      dark: 'github-dark-dimmed',
+      light: 'github-light',
+    },
+    defaultLang: 'plaintext',
+    transformers: [transformerNotationDiff()],
+    keepBackground: false,
+  }
   return compileMDX({
     source: fileContents,
     options: {
       parseFrontmatter: true,
+
       mdxOptions: {
-        remarkPlugins: [],
-        rehypePlugins: [],
+        remarkPlugins: [remarkGfm, remarkBreaks],
+        rehypePlugins: [[rehypePrettyCode, options], rehypeSlug],
+        format: 'mdx',
       },
     },
   })

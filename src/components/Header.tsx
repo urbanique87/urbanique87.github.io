@@ -54,7 +54,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
   width: 100%;
   max-width: var(--layout-max-width);
-  height: 60px;
+  height: 80px;
   padding: 0 ${({ theme }) => theme.spacing(4)};
   margin: 0 auto;
 `
