@@ -53,10 +53,10 @@ const StyledExcerpt = styled.p`
   margin: 0 0 0.75rem;
   line-height: 1.5;
   font-size: ${({ theme }) => theme.fontSizes.medium};
-  color: var(--secondary);
+  color: var(--text-primary);
 `
 
 const StyledCreatedAt = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.small};
-  color: var(--secondary);
+  color: var(--text-secondary);
 `
