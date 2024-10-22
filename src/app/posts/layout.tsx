@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: '개발, 학습, 그리고 생활',
 }
 
-export default function BlogLayout({
+export default function PostsLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>): JSX.Element {
   return <>{children}</>

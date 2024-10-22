@@ -10,7 +10,6 @@ import { transformerNotationDiff } from '@shikijs/transformers'
 import type { CompileMDXResult } from 'next-mdx-remote/rsc'
 import type {
   PostDetailContent,
-  //   PostDetail,
   PostMetadata,
   PostSummary,
 } from '@/src/types/post.types'

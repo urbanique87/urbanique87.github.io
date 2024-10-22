@@ -1,9 +1,12 @@
+'use client'
+
 // types
 import type { PostSummary } from '@/src/types/post.types'
 // components
-import PostItem from '@/src/components/PostItem'
+import PostItem from '@/src/components/posts/PostItem'
 // styles
-import { PostList } from '@/src/styles/Post'
+// import { PostList } from '@/src/styles/Post'
+import styled from 'styled-components'
 
 interface RenderPostsListProps {
   posts: PostSummary[]
@@ -29,3 +32,8 @@ export default function RenderPostList({
     </PostList>
   )
 }
+
+const PostList = styled.ul`
+  padding: 0 1rem;
+  list-style: none;
+`

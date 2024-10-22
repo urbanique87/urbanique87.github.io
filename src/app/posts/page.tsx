@@ -1,8 +1,8 @@
 // libs
 import { getPosts } from '@/src/lib/postService'
 // components
-import RenderPostList from '@/src/components/RenderPostList'
-import CategoryList from '@/src/components/CategoryList'
+import RenderPostList from '@/src/components/posts/RenderPostList'
+import CategoryList from '@/src/components/posts/CategoryList'
 // libs
 import { getCategoriesWithPostCount } from '@/src/lib/categoryService'
 

@@ -4,9 +4,9 @@ import { getPosts } from '@/src/lib/postService'
 import { fetchPostBySlug } from '@/src/lib/postService'
 import { generatePostMetadata } from '@/src/lib/generatePostMetadata'
 // components
-import RenderPost from '@/src/components/RenderPost'
+import RenderPost from '@/src/components/posts/RenderPost'
 // styles
-import '@/src/styles/github-markdown.css'
+import '@/public/styles/github-markdown.css'
 
 /**
  * Static Generation을 위한 경로 파라미터 생성 함수

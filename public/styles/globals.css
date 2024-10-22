@@ -1,26 +1,33 @@
 :root {
-  --white: #ffffff;
-  --black: #000000;
-
-  /* --background: var(--white); */
   --background: #ffffff;
-  --foreground: var(--black);
+  --surface: #f8f9fa;
+  --surface-alt: #f1f3f5;
+  --primary: #1971c2;
+  --primary-hover: #1864ab;
+  --secondary: #868e96;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --border: #dee2e6;
+  --accent: #20c997;
+  --error: #e03131;
 
-  --primary: #0f172a;
-  --secondary: #4d4d4d;
-
-  --layout-max-width: 800px;
+  --layout-max-width: 640px;
 }
 
 /* 다크모드 스타일 정의 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--black);
-    /* --foreground: var(--white); */
-    --foreground: #f5f5f5;
-
-    --primary: #f5f5f5;
-    --secondary: #3d3d3d;
+    --background: #18191a;
+    --surface: #242526;
+    --surface-alt: #2d2f30;
+    --primary: #339af0;
+    --primary-hover: #4dabf7;
+    --secondary: #adb5bd;
+    --text-primary: #f8f9fa;
+    --text-secondary: #dee2e6;
+    --border: #495057;
+    --accent: #12b886;
+    --error: #ff6b6b;
   }
 }
 
@@ -31,13 +38,13 @@ body {
 }
 
 html {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 body {
-  color: var(--foreground);
+  color: var(--text-primary);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Pretendard Variable', 'sans-serif';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -45,7 +52,7 @@ body {
 main {
   max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: 32px 16px 0;
+  /* padding: 1rem 1rem; */
 }
 
 * {
@@ -67,7 +74,7 @@ a {
 
 @media screen and (max-width: 1024px) {
   html {
-    font-size: 14px; /* 태블릿 등 중간 크기 화면에서는 1rem = 14px */
+    font-size: 0.875rem;
   }
 }
 

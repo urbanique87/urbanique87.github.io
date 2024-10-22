@@ -3,7 +3,7 @@
 // types
 import type { PostDetailContent } from '@/src/types/post.types'
 // components
-import Giscus from '@/src/components/Giscus'
+import Giscus from '@/src/components/posts/Giscus'
 // styles
 import styled from 'styled-components'
 
@@ -23,17 +23,27 @@ export default function RenderPost({ post }: RenderPostProps): JSX.Element {
   const { title, date, content } = post
 
   return (
-    <article>
-      <Header>
+    <StyledArticle>
+      <StyledHeader>
         <h1>{title}</h1>
         <p>{date}</p>
-      </Header>
+      </StyledHeader>
       <div className="markdown-body">{content}</div>
+      <StyledSeparator />
       <Giscus />
-    </article>
+    </StyledArticle>
   )
 }
 
-const Header = styled.div`
+const StyledHeader = styled.div`
   margin-bottom: 40px;
+`
+
+const StyledArticle = styled.article`
+  padding: 0 1rem;
+`
+const StyledSeparator = styled.hr`
+  border: none;
+  border-top: 1px solid var(--surface-alt);
+  margin: 48px 0;
 `

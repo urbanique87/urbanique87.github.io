@@ -1,8 +1,10 @@
-/**
- * 어바웃 페이지
- */
-export default function About() {
-    return (
-        <main>About Page</main>
-    )
+// components
+import Introduce from '@/src/components/about/Introduce'
+
+export default function AboutPage() {
+  return (
+    <main>
+      <Introduce />
+    </main>
+  )
 }

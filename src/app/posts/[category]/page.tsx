@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 // components
-import CategoryList from '@/src/components/CategoryList'
-import RenderPostList from '@/src/components/RenderPostList'
+import CategoryList from '@/src/components/posts/CategoryList'
+import RenderPostList from '@/src/components/posts/RenderPostList'
 // libs
 import { getPosts } from '@/src/lib/postService'
 import { getCategoriesWithPostCount } from '@/src/lib/categoryService'
