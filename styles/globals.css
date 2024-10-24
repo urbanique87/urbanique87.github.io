@@ -127,3 +127,25 @@ code[data-theme*=' '] span {
     background-color: var(--shiki-dark-bg);
   }
 }
+
+
+pre [data-line].remove {
+    position: relative;
+    background-color: #ffebe9;
+
+    &::after {
+        content: '-';
+        position: absolute;
+        left: 44px;
+    }
+}
+pre [data-line].add {
+    position: relative;
+    background-color: #dafbe1;
+
+    &::after {
+        content: '+';
+        position: absolute;
+        left: 44px;
+    }
+}
