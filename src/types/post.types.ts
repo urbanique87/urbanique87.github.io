@@ -14,20 +14,19 @@ export interface PostDetailContent<T = unknown> extends PostBaseInfo {
   plainContent: string
 }
 
-export interface PostSummary extends PostBaseInfo, PostCategory {
+export interface PostSummary extends PostBaseInfo, Category {
   slug: string
   plainContent: string
 }
 
-export interface PostCategory {
+export interface Category {
   category: string
 }
 
-export interface PostCountByCategory extends PostCategory {
+export interface PostCountByCategory extends Category {
   count: number
 }
 
 export interface CategoriesWithCounts {
   categories: PostCountByCategory[]
-  totalPostCount: number
 }

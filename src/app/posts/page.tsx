@@ -11,7 +11,7 @@ import { getCategoriesWithPostCount } from '@/src/lib/categoryService'
  */
 export default async function PostListPage(): Promise<JSX.Element> {
   try {
-    const [{ categories, totalPostCount }, posts] = await Promise.all([
+    const [{ categories }, posts] = await Promise.all([
       getCategoriesWithPostCount(),
       getPosts(),
     ])
@@ -26,7 +26,7 @@ export default async function PostListPage(): Promise<JSX.Element> {
 
     return (
       <main>
-        <CategoryList categories={categories} totalPostCount={totalPostCount} />
+        <CategoryList categories={categories} />
         <RenderPostList posts={posts} />
       </main>
     )

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
 // constants
-import { LINKS } from '@/src/config/links'
+import { LINKS } from '@/src/constants/links'
 
 /**
  * 블로그 헤더 컴포넌트

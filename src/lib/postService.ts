@@ -16,7 +16,7 @@ import type {
 // utils
 import { convertMDXToPlainText } from '@/src/utils/mdxUtils'
 // constants
-import { POSTS_DIRECTORY_PATH } from '@/src/config/paths'
+import { POSTS_DIRECTORY_PATH } from '@/src/constants/paths'
 
 /**
  * frontmatter가 PostMetadata 타입인지 확인하는 타입 가드 함수

@@ -8,30 +8,28 @@ import { PostCountByCategory } from '@/src/types/post.types'
 
 interface CategoryListProps {
   categories: PostCountByCategory[]
-  totalPostCount: number
 }
 
 /**
  * 블로그 카테고리 리스트
  */
-const CategoryList = ({ categories, totalPostCount }: CategoryListProps) => {
+const CategoryList = ({ categories }: CategoryListProps) => {
   const currentPath = usePathname()
+
+  const categoryItems = categories.map(({ category, count }) => {
+    const href = category === 'all' ? '/posts' : `/posts/${category}`
+    const isActive = currentPath === href
+
+    return (
+      <StyledItem key={category} $isActive={isActive}>
+        <Link href={href}>{`${category} (${count})`}</Link>
+      </StyledItem>
+    )
+  })
 
   return (
     <StyledNav aria-label="post categories">
-      <StyledList>
-        <StyledItem $isActive={currentPath === '/posts'}>
-          <Link href="/posts">All ({totalPostCount})</Link>
-        </StyledItem>
-        {categories.map(({ category, count }) => (
-          <StyledItem
-            key={category}
-            $isActive={currentPath === `/posts/${category}`}
-          >
-            <Link href={`/posts/${category}`}>{`${category} (${count})`}</Link>
-          </StyledItem>
-        ))}
-      </StyledList>
+      <StyledList>{categoryItems}</StyledList>
     </StyledNav>
   )
 }

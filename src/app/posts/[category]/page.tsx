@@ -39,7 +39,7 @@ export default async function CategoryPostsPage({
   params,
 }: CategoryPageParams): Promise<JSX.Element> {
   try {
-    const [{ categories, totalPostCount }, posts] = await Promise.all([
+    const [{ categories }, posts] = await Promise.all([
       getCategoriesWithPostCount(),
       getPosts(),
     ])
@@ -53,7 +53,7 @@ export default async function CategoryPostsPage({
 
     return (
       <main>
-        <CategoryList categories={categories} totalPostCount={totalPostCount} />
+        <CategoryList categories={categories} />
         <RenderPostList posts={filteredPosts} />
       </main>
     )
