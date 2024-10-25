@@ -21,26 +21,26 @@ const CategoryList = ({ categories }: CategoryListProps) => {
     const isActive = currentPath === href
 
     return (
-      <StyledItem key={category} $isActive={isActive}>
+      <Item key={category} $isActive={isActive}>
         <Link href={href}>{`${category} (${count})`}</Link>
-      </StyledItem>
+      </Item>
     )
   })
 
   return (
-    <StyledNav aria-label="post categories">
-      <StyledList>{categoryItems}</StyledList>
-    </StyledNav>
+    <Wrapper aria-label="post categories">
+      <List>{categoryItems}</List>
+    </Wrapper>
   )
 }
 
 export default CategoryList
 
-const StyledNav = styled.nav`
+const Wrapper = styled.nav`
   margin-bottom: 2rem;
 `
 
-const StyledList = styled.ul`
+const List = styled.ul`
   overflow-x: auto;
   padding: 0 1rem;
   list-style: none;
@@ -55,7 +55,7 @@ const StyledList = styled.ul`
   -ms-overflow-style: none;
 `
 
-const StyledItem = styled.li<{ $isActive: boolean }>`
+const Item = styled.li<{ $isActive: boolean }>`
   display: inline-block;
   margin-right: 12px;
   border: 1px solid var(--surface-alt);

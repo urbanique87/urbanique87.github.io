@@ -14,19 +14,19 @@ const Header = () => {
 
   return (
     <header>
-      <StyledWrapper>
+      <Container>
         <nav>
-          <StyledList>
+          <List>
             {Object.entries(LINKS).map(([label, path]) => (
               <li key={path}>
-                <StyledLink href={path} $isActive={isLinkActive(pathname, path)}>
+                <NavLink href={path} $isActive={isLinkActive(pathname, path)}>
                   {label}
-                </StyledLink>
+                </NavLink>
               </li>
             ))}
-          </StyledList>
+          </List>
         </nav>
-      </StyledWrapper>
+      </Container>
     </header>
   )
 }
@@ -48,25 +48,25 @@ const isLinkActive = (currentPath: string, linkPath: string): boolean => {
 
 export default Header
 
-const StyledWrapper = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   width: 100%;
   max-width: var(--layout-max-width);
-  height: 80px;
+  height: 5rem;
   padding: 0 ${({ theme }) => theme.spacing(4)};
   margin: 0 auto;
 `
 
-const StyledList = styled.ul`
+const List = styled.ul`
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 1.5rem;
   list-style-type: none;
 `
 
-const StyledLink = styled(Link)<{ $isActive: boolean }>`
+const NavLink = styled(Link)<{ $isActive: boolean }>`
   position: relative;
   color: var(--text-primary);
   font-size: ${({ theme }) => theme.fontSizes.large};

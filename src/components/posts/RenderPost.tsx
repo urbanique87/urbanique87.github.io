@@ -27,27 +27,27 @@ export default function RenderPost({ post }: RenderPostProps): JSX.Element {
   } = post
 
   return (
-    <StyledArticle>
-      <StyledHeader>
+    <Article>
+      <Header>
         <h1>{title}</h1>
         <p>{date}</p>
-      </StyledHeader>
+      </Header>
       <div className="markdown-body">{content}</div>
-      <StyledSeparator />
+      <Separator />
       <Giscus />
-    </StyledArticle>
+    </Article>
   )
 }
 
-const StyledHeader = styled.div`
-  margin-bottom: 40px;
+const Header = styled.div`
+  margin-bottom: 2.5rem;
 `
 
-const StyledArticle = styled.article`
+const Article = styled.article`
   padding: 0 1rem;
 `
-const StyledSeparator = styled.hr`
+const Separator = styled.hr`
   border: none;
   border-top: 1px solid var(--surface-alt);
-  margin: 48px 0;
+  margin: 3rem 0;
 `

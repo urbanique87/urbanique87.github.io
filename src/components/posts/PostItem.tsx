@@ -23,18 +23,18 @@ export default function PostItem({ post }: PostItemProps): JSX.Element {
   const { category, slug, title, description, date } = post
 
   return (
-    <StyledItem>
+    <Item>
       <Link href={`/posts/${category}/${slug}`} aria-label={title}>
-        <StyledTitle>{title}</StyledTitle>
+        <Title>{title}</Title>
 
-        <StyledExcerpt>{description}</StyledExcerpt>
-        <StyledCreatedAt>{date}</StyledCreatedAt>
+        <Description>{description}</Description>
+        <CreatedAt>{date}</CreatedAt>
       </Link>
-    </StyledItem>
+    </Item>
   )
 }
 
-const StyledItem = styled.li`
+const Item = styled.li`
   margin-bottom: 3rem;
 
   &:last-child {
@@ -42,20 +42,20 @@ const StyledItem = styled.li`
   }
 `
 
-const StyledTitle = styled.h2`
+const Title = styled.h2`
   margin: 0 0 0.75rem;
   font-size: ${({ theme }) => theme.fontSizes.large};
   color: var(--text-primary);
 `
 
-const StyledExcerpt = styled.p`
+const Description = styled.p`
   margin: 0 0 0.75rem;
   line-height: 1.5;
   font-size: ${({ theme }) => theme.fontSizes.medium};
   color: var(--text-primary);
 `
 
-const StyledCreatedAt = styled.p`
+const CreatedAt = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: var(--text-secondary);
 `

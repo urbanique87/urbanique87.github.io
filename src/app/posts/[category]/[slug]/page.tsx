@@ -36,8 +36,9 @@ export async function generateStaticParams(): Promise<RouteParams[]> {
  */
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const { category, slug } = params
-  const { frontmatter } = await fetchPostBySlug(category, slug)
-  const { title, description } = frontmatter
+  const {
+    frontmatter: { title, description },
+  } = await fetchPostBySlug(category, slug)
 
   return {
     title,
