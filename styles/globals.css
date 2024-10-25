@@ -52,7 +52,7 @@ body {
 main {
   max-width: var(--layout-max-width);
   margin: 0 auto;
-  /* padding: 1rem 1rem; */
+  padding: 3rem 1rem;
 }
 
 * {
@@ -128,24 +128,23 @@ code[data-theme*=' '] span {
   }
 }
 
-
 pre [data-line].remove {
-    position: relative;
-    background-color: #ffebe9;
+  position: relative;
+  background-color: #ffebe9;
 
-    &::after {
-        content: '-';
-        position: absolute;
-        left: 44px;
-    }
+  &::after {
+    content: '-';
+    position: absolute;
+    left: 44px;
+  }
 }
 pre [data-line].add {
-    position: relative;
-    background-color: #dafbe1;
+  position: relative;
+  background-color: #dafbe1;
 
-    &::after {
-        content: '+';
-        position: absolute;
-        left: 44px;
-    }
+  &::after {
+    content: '+';
+    position: absolute;
+    left: 44px;
+  }
 }
