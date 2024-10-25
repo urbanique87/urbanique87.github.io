@@ -1,4 +1,4 @@
 export const LINKS = {
-  about: '/about',
+  about: '/',
   posts: '/posts',
 } as const

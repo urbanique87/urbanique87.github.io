@@ -1,5 +1,9 @@
-import { redirect } from 'next/navigation'
+import About from '@/src/components/about/About'
 
-export default function Home(): void {
-  redirect('/posts')
+export default function MainPage() {
+  return (
+    <main>
+      <About />
+    </main>
+  )
 }

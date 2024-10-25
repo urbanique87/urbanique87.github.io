@@ -18,11 +18,11 @@ const Header = () => {
         <nav>
           <StyledList>
             {Object.entries(LINKS).map(([label, path]) => (
-              <StyledItem key={path}>
+              <li key={path}>
                 <StyledLink href={path} $isActive={isLinkActive(pathname, path)}>
                   {label}
                 </StyledLink>
-              </StyledItem>
+              </li>
             ))}
           </StyledList>
         </nav>
@@ -51,6 +51,7 @@ export default Header
 const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   width: 100%;
   max-width: var(--layout-max-width);
   height: 80px;
@@ -59,24 +60,17 @@ const StyledWrapper = styled.div`
 `
 
 const StyledList = styled.ul`
-  padding: 0;
-  list-style: none;
-`
-
-const StyledItem = styled.li`
-  display: inline-block;
-  margin-right: 24px;
-
-  &:last-of-type {
-    margin-right: 0;
-  }
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style-type: none;
 `
 
 const StyledLink = styled(Link)<{ $isActive: boolean }>`
   position: relative;
   color: var(--text-primary);
-  font-size: ${({ theme }) => theme.fontSizes.xlarge};
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.large};
+  font-weight: 400;
   text-transform: uppercase;
 
   &:after {
@@ -86,7 +80,7 @@ const StyledLink = styled(Link)<{ $isActive: boolean }>`
     right: 0;
     bottom: -4px;
     width: 100%;
-    height: 4px;
+    height: 2px;
   }
 
   ${({ $isActive }) =>
