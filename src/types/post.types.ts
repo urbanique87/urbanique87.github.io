@@ -1,26 +1,19 @@
-import type { ReactElement } from 'react'
-
-export interface PostBaseInfo {
+export interface PostBase {
   title: string
+  description: string
   date: string // ISO 형식
 }
 
-export interface PostMetadata extends PostBaseInfo {
+export interface PostMetadata extends PostBase {
   [key: string]: unknown
-}
-
-export interface PostDetailContent<T = unknown> extends PostBaseInfo {
-  content: ReactElement<T>
-  plainContent: string
-}
-
-export interface PostSummary extends PostBaseInfo, Category {
-  slug: string
-  plainContent: string
 }
 
 export interface Category {
   category: string
+}
+
+export interface PostSummary extends PostBase, Category {
+  slug: string
 }
 
 export interface PostCountByCategory extends Category {

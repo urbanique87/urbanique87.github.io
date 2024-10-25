@@ -20,8 +20,7 @@ const Header = () => (
   <StyledHeader>
     <StyledAuthor>JH</StyledAuthor>
     <StyledDescription>
-      복잡함을 단순함으로 바꾸고, 사용자에게 진정으로 의미있는 경험을 제공하는
-      것을 추구합니다.
+      복잡함을 단순함으로 바꾸고, 사용자에게 진정으로 의미있는 경험을 제공하는 것을 추구합니다.
       <br />
       오늘의 도전이 내일의 영감으로 이어지는 순간들을 기록합니다.
     </StyledDescription>

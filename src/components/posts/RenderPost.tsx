@@ -1,14 +1,15 @@
 'use client'
 
 // types
-import type { PostDetailContent } from '@/src/types/post.types'
+import type { PostMetadata } from '@/src/types/post.types'
 // components
 import Giscus from '@/src/components/posts/Giscus'
 // styles
 import styled from 'styled-components'
+import { CompileMDXResult } from 'next-mdx-remote/rsc'
 
 interface RenderPostProps {
-  post: PostDetailContent
+  post: CompileMDXResult<PostMetadata>
 }
 
 /**
@@ -20,7 +21,10 @@ interface RenderPostProps {
  * @param {import('next-mdx-remote').MDXRemoteSerializeResult} props.post.content - 포스트 내용
  */
 export default function RenderPost({ post }: RenderPostProps): JSX.Element {
-  const { title, date, content } = post
+  const {
+    content,
+    frontmatter: { title, date },
+  } = post
 
   return (
     <StyledArticle>

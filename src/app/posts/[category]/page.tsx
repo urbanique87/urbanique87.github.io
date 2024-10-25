@@ -1,60 +1,45 @@
-import { notFound } from 'next/navigation'
 // components
 import CategoryList from '@/src/components/posts/CategoryList'
 import RenderPostList from '@/src/components/posts/RenderPostList'
 // libs
-import { getPosts } from '@/src/lib/postService'
-import { getCategoriesWithPostCount } from '@/src/lib/categoryService'
-import { filterPostsByCategory, isValidCategory } from '@/src/lib/category'
+import { getPostMetadataByCategory, getCategoriesWithPostCount } from '@/src/lib/post'
 
-interface CategoryPageParams {
-  params: {
-    category: string
-  }
+interface RouteParams {
+  category: string
+}
+
+interface PageParams {
+  params: RouteParams
 }
 
 /**
  * Static Generation을 위한 경로 파라미터 생성 함수
  */
-export async function generateStaticParams(): Promise<
-  {
-    category: string
-  }[]
-> {
-  try {
-    const { categories } = await getCategoriesWithPostCount()
-    return categories.map(({ category }) => ({
+export async function generateStaticParams(): Promise<RouteParams[]> {
+  const { categories } = await getCategoriesWithPostCount()
+  return categories
+    .filter(({ category }) => category !== 'all')
+    .map(({ category }) => ({
       category,
     }))
-  } catch (error) {
-    console.error('Error generating static params:', error)
-    return []
-  }
 }
 
 /**
  * 카테고리별 포스트 목록 페이지
  */
-export default async function CategoryPostsPage({
-  params,
-}: CategoryPageParams): Promise<JSX.Element> {
+export default async function PostListByCategoryPage({
+  params: { category },
+}: PageParams): Promise<JSX.Element> {
   try {
     const [{ categories }, posts] = await Promise.all([
       getCategoriesWithPostCount(),
-      getPosts(),
+      getPostMetadataByCategory(category),
     ])
-
-    if (!isValidCategory(categories, params.category)) {
-      return notFound()
-    }
-
-    // 현재 카테고리의 포스트만 필터링
-    const filteredPosts = filterPostsByCategory(posts, params.category)
 
     return (
       <main>
         <CategoryList categories={categories} />
-        <RenderPostList posts={filteredPosts} />
+        <RenderPostList posts={posts} />
       </main>
     )
   } catch (error) {

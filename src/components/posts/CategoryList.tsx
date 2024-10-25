@@ -59,8 +59,7 @@ const StyledItem = styled.li<{ $isActive: boolean }>`
   display: inline-block;
   margin-right: 12px;
   border: 1px solid var(--surface-alt);
-  background: ${({ $isActive }) =>
-    $isActive ? 'var(--surface-alt)' : 'transparent'};
+  background: ${({ $isActive }) => ($isActive ? 'var(--surface-alt)' : 'transparent')};
   padding: 4px 12px;
   border-radius: 12px;
   text-transform: capitalize;

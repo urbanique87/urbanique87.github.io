@@ -16,19 +16,18 @@ interface PostItemProps {
  * @param {string} props.post.category - 포스트 카테고리
  * @param {string} props.post.slug - 포스트 slug
  * @param {string} props.post.title - 포스트 제목
+ * @param {string} props.post.description - 포스트 요약 설명
  * @param {string} props.post.date - 포스트 작성일
- * @param {string} props.post.plainContent - 포스트 원본 내용
  */
 export default function PostItem({ post }: PostItemProps): JSX.Element {
-  const { category, slug, title, date, plainContent } = post
-  const excerpt = plainContent.substring(0, 100)
+  const { category, slug, title, description, date } = post
 
   return (
     <StyledItem>
       <Link href={`/posts/${category}/${slug}`} aria-label={title}>
         <StyledTitle>{title}</StyledTitle>
 
-        <StyledExcerpt>{excerpt}</StyledExcerpt>
+        <StyledExcerpt>{description}</StyledExcerpt>
         <StyledCreatedAt>{date}</StyledCreatedAt>
       </Link>
     </StyledItem>

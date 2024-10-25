@@ -1,20 +1,15 @@
-// libs
-import { getPosts } from '@/src/lib/postService'
 // components
 import RenderPostList from '@/src/components/posts/RenderPostList'
 import CategoryList from '@/src/components/posts/CategoryList'
 // libs
-import { getCategoriesWithPostCount } from '@/src/lib/categoryService'
+import { getPosts, getCategoriesWithPostCount } from '@/src/lib/post'
 
 /**
  * 포스트 목록 페이지
  */
 export default async function PostListPage(): Promise<JSX.Element> {
   try {
-    const [{ categories }, posts] = await Promise.all([
-      getCategoriesWithPostCount(),
-      getPosts(),
-    ])
+    const [{ categories }, posts] = await Promise.all([getCategoriesWithPostCount(), getPosts()])
 
     if (posts.length === 0) {
       return (

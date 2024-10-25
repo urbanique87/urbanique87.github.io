@@ -19,10 +19,7 @@ const Header = () => {
           <StyledList>
             {Object.entries(LINKS).map(([label, path]) => (
               <StyledItem key={path}>
-                <StyledLink
-                  href={path}
-                  $isActive={isLinkActive(pathname, path)}
-                >
+                <StyledLink href={path} $isActive={isLinkActive(pathname, path)}>
                   {label}
                 </StyledLink>
               </StyledItem>

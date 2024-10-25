@@ -17,9 +17,7 @@ interface RenderPostsListProps {
  * @param {RenderPostsListProps} props - 컴포넌트 Props
  * @param {PostSummary} props.posts - 렌더링할 포스트 간단 정보
  */
-export default function RenderPostList({
-  posts,
-}: RenderPostsListProps): JSX.Element {
+export default function RenderPostList({ posts }: RenderPostsListProps): JSX.Element {
   if (posts.length === 0) {
     return <p>작성된 글이 없습니다.</p>
   }
