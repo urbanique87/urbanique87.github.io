@@ -4,6 +4,10 @@ import { getAnalytics } from 'firebase/analytics'
 import { FIREBASE_CONFIG } from '@/src/config/constants/firebase'
 
 export function createFirebaseApp() {
+  if (process.env.NODE_ENV === 'development') {
+    return
+  }
+
   if (typeof window === 'undefined') {
     return
   }
