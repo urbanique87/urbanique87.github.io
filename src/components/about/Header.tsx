@@ -11,7 +11,7 @@ export default function Header({ author, description }: AuthorData): JSX.Element
   return (
     <Container>
       <Author>{author}</Author>
-      <Introduce>{description}</Introduce>
+      <Introduce dangerouslySetInnerHTML={{ __html: description }}></Introduce>
     </Container>
   )
 }
