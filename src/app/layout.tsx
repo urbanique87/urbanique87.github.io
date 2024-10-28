@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 // components
 import Header from '@/src/components/layout/Header'
 import ClientThemeProvider from '@/src/components/posts/ClientThemeProvider'
+import FirebaseAnalytics from '@/src/components/FirebaseAnalytics'
 // libs
 import StyledComponentsRegistry from '@/src/lib/registry'
 // styles
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: Readonly<LayoutProps>): JSX.Ele
         />
       </head>
       <body>
+        <FirebaseAnalytics />
         <StyledComponentsRegistry>
           <ClientThemeProvider>
             <Header />
