@@ -4,13 +4,15 @@
         <title><![CDATA[J.CHI Blog]]></title>
         <link>https://urbanique87.github.io</link>
         <description><![CDATA[기술과 창의성이 만나는 지점을 탐구하며, 통찰력 있는 글과 개인적인 생각을 나누는 공간입니다.]]></description>
-        <lastBuildDate>Mon, 28 Oct 2024 09:10:18 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 28 Oct 2024 16:06:36 GMT</lastBuildDate>
+        
         <item>
-        <title><![CDATA[Nextjs로 나만의 블로그 만들기]]></title>
-        <link>https://urbanique87.github.io/posts/frontend/2024-10-24_nextjs-blog</link>
-        <description><![CDATA[]]></description>
-        <pubDate>Thu, 24 Oct 2024 00:00:00 GMT</pubDate>
-        <guid isPermaLink="true">https://urbanique87.github.io/posts/frontend/2024-10-24_nextjs-blog</guid>
-      </item>
+          <title><![CDATA[Nextjs로 나만의 블로그 만들기]]></title>
+          <link>https://urbanique87.github.io/posts/frontend/2024-10-24_nextjs-blog</link>
+          <description><![CDATA[]]></description>
+          <pubDate>Thu, 24 Oct 2024 00:00:00 GMT</pubDate>
+          <guid isPermaLink="true">https://urbanique87.github.io/posts/frontend/2024-10-24_nextjs-blog</guid>
+        </item>
+      
       </channel>
     </rss>
