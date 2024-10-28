@@ -15,7 +15,7 @@ import type {
   PostMetadata,
 } from '@/src/types/post.types'
 // constants
-import { POSTS_DIR } from '@/src/constants/paths'
+import { POSTS_DIR } from '@/src/config/constants/paths'
 
 /**
  * 카테고리 리스트와 각 카테고리의 포스트 수를 가져온다.
