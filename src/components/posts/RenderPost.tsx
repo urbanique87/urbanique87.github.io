@@ -30,7 +30,7 @@ export default function RenderPost({ post }: RenderPostProps): JSX.Element {
     <Article>
       <Header>
         <h1>{title}</h1>
-        <p>{date}</p>
+        <time dateTime={date}>{date}</time>
       </Header>
       <div className="markdown-body">{content}</div>
       <Separator />
