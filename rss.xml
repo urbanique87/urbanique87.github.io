@@ -4,8 +4,16 @@
         <title><![CDATA[J.CHI Blog]]></title>
         <link>https://urbanique87.github.io</link>
         <description><![CDATA[기술과 창의성이 만나는 지점을 탐구하며, 통찰력 있는 글과 개인적인 생각을 나누는 공간입니다.]]></description>
-        <lastBuildDate>Tue, 29 Oct 2024 03:01:17 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 08 Nov 2024 05:21:40 GMT</lastBuildDate>
         
+        <item>
+          <title><![CDATA[Next.js가 말하는 "인터랙티브하고 동적인 웹" - 그 진짜 의미]]></title>
+          <link>https://urbanique87.github.io/posts/frontend/20241108_nextjs</link>
+          <description><![CDATA[Next.js 공식 문서에서 강조하는 '인터랙티브하고 동적인 웹 애플리케이션'이라는 문구의 실제 의미를 기술적 관점에서 살펴봅니다. SSR, SSG, ISR 등 Next.js의 핵심 기능들이 어떻게 이러한 특징을 구현하는지, 그리고 이것이 실제 사용자 경험에 어떤 영향을 미치는지 상세히 분석합니다.]]></description>
+          <pubDate>Fri, 08 Nov 2024 00:00:00 GMT</pubDate>
+          <guid isPermaLink="true">https://urbanique87.github.io/posts/frontend/20241108_nextjs</guid>
+        </item>
+      
         <item>
           <title><![CDATA[블로그에 댓글 기능 구현하기 with Giscus]]></title>
           <link>https://urbanique87.github.io/posts/frontend/2024-10-29_nextjs_blog</link>
