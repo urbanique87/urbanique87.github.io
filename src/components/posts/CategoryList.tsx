@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { styled } from 'styled-components'
 // types
-import { PostCountByCategory } from '@/src/types/post.types'
+import { PostCountByCategory } from '@/types/post.types'
 
 interface CategoryListProps {
   categories: PostCountByCategory[]

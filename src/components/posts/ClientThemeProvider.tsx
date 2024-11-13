@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 // types
 import type { ReactNode } from 'react'
 // styles
-import theme from '@/src/styles/theme'
+import theme from '@/styles/theme'
 
 interface ClientThemeProviderProps {
   children: ReactNode

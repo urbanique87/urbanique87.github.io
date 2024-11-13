@@ -2,7 +2,7 @@
 
 import { styled } from 'styled-components'
 // types
-import { AuthorData } from '@/src/types/about.types'
+import { AuthorData } from '@/types/about.types'
 
 /**
  * 어바웃 헤더 컴포넌트

@@ -1,8 +1,8 @@
 // components
-import CategoryList from '@/src/components/posts/CategoryList'
-import RenderPostList from '@/src/components/posts/RenderPostList'
+import CategoryList from '@/components/posts/CategoryList'
+import RenderPostList from '@/components/posts/RenderPostList'
 // libs
-import { getPostMetadataByCategory, getCategoriesWithPostCount } from '@/src/lib/post'
+import { getPostMetadataByCategory, getCategoriesWithPostCount } from '@/lib/post'
 
 interface RouteParams {
   category: string

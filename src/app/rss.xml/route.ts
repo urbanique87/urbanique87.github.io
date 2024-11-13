@@ -1,7 +1,7 @@
 // config
-import { BASE_URL } from '@/src/config/constants/paths'
+import { BASE_URL } from '@/config/constants/paths'
 // libs
-import { getPosts } from '@/src/lib/post'
+import { getPosts } from '@/lib/post'
 
 export async function GET(): Promise<Response> {
   const posts = await getPosts()

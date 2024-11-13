@@ -1,9 +1,9 @@
 'use client'
 
 // types
-import type { PostMetadata } from '@/src/types/post.types'
+import type { PostMetadata } from '@/types/post.types'
 // components
-import Giscus from '@/src/components/posts/Giscus'
+import Giscus from '@/components/posts/Giscus'
 // styles
 import styled from 'styled-components'
 import { CompileMDXResult } from 'next-mdx-remote/rsc'

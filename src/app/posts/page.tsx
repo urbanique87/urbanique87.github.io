@@ -1,8 +1,8 @@
 // components
-import RenderPostList from '@/src/components/posts/RenderPostList'
-import CategoryList from '@/src/components/posts/CategoryList'
+import RenderPostList from '@/components/posts/RenderPostList'
+import CategoryList from '@/components/posts/CategoryList'
 // libs
-import { getPosts, getCategoriesWithPostCount } from '@/src/lib/post'
+import { getPosts, getCategoriesWithPostCount } from '@/lib/post'
 
 /**
  * 포스트 목록 페이지

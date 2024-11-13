@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 // types
-import type { PostSummary } from '@/src/types/post.types'
+import type { PostSummary } from '@/types/post.types'
 
 interface PostItemProps {
   post: PostSummary

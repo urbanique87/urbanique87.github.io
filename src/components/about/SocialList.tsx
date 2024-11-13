@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { styled } from 'styled-components'
 // types
-import type { SocialLinks } from '@/src/types/about.types'
+import type { SocialLinks } from '@/types/about.types'
 
 /**
  * 어바웃 소셜 링크 컴포넌트

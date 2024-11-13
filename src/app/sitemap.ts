@@ -1,9 +1,9 @@
 // types
 import type { MetadataRoute } from 'next'
 // config
-import { BASE_URL } from '@/src/config/constants/paths'
+import { BASE_URL } from '@/config/constants/paths'
 // libs
-import { getCategoriesWithPostCount, getPosts } from '@/src/lib/post'
+import { getCategoriesWithPostCount, getPosts } from '@/lib/post'
 
 export default async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
   const [{ categories }, posts] = await Promise.all([getCategoriesWithPostCount(), getPosts()])

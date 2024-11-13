@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
 // libs
-import { getPosts, fetchPostBySlug } from '@/src/lib/post'
+import { getPosts, fetchPostBySlug } from '@/lib/post'
 // components
-import RenderPost from '@/src/components/posts/RenderPost'
+import RenderPost from '@/components/posts/RenderPost'
 // styles
 import '@/public/styles/github-markdown.css'
 

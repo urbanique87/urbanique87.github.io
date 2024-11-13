@@ -2,10 +2,10 @@
 
 import styled from 'styled-components'
 // data
-import about from '@/src/data/about.json'
+import about from '@/data/about.json'
 // components
-import Header from '@/src/components/about/Header'
-import SocialList from '@/src/components/about/SocialList'
+import Header from '@/components/about/Header'
+import SocialList from '@/components/about/SocialList'
 
 /**
  * 어바웃 컴포넌트

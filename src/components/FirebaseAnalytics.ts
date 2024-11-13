@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 // libs
-import { createFirebaseApp } from '@/src/lib/analytics'
+import { createFirebaseApp } from '@/lib/analytics'
 
 export default function FirebaseAnalytics() {
   useEffect(() => {

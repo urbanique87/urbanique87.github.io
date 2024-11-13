@@ -2,11 +2,11 @@ import type { ReactNode } from 'react'
 // types
 import type { Metadata } from 'next'
 // components
-import Header from '@/src/components/layout/Header'
-import ClientThemeProvider from '@/src/components/posts/ClientThemeProvider'
-import FirebaseAnalytics from '@/src/components/FirebaseAnalytics'
+import Header from '@/components/layout/Header'
+import ClientThemeProvider from '@/components/posts/ClientThemeProvider'
+import FirebaseAnalytics from '@/components/FirebaseAnalytics'
 // libs
-import StyledComponentsRegistry from '@/src/lib/registry'
+import StyledComponentsRegistry from '@/lib/registry'
 // styles
 import '@/public/styles/globals.css'
 

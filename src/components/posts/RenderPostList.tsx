@@ -1,11 +1,11 @@
 'use client'
 
 // types
-import type { PostSummary } from '@/src/types/post.types'
+import type { PostSummary } from '@/types/post.types'
 // components
-import PostItem from '@/src/components/posts/PostItem'
+import PostItem from '@/components/posts/PostItem'
 // styles
-// import { PostList } from '@/src/styles/Post'
+// import { PostList } from '@/styles/Post'
 import styled from 'styled-components'
 
 interface RenderPostsListProps {
