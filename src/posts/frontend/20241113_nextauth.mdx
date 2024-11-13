@@ -1,0 +1,176 @@
+---
+title: Next.js 15 Edge Runtime에서 NextAuth v5와 bcrypt 호환성 문제 해결하기
+description: Next.js 14에서 NextAuth v5를 사용하면서 마주친 Edge Runtime과 bcrypt 호환성 이슈를 해결하는 과정을 다룹니다. Node.js 네이티브 모듈의 Edge Runtime 제약사항과 이를 해결하기 위한 설정 분리 방법을 상세히 설명합니다.
+date: 2024-11-13
+---
+
+## 들어가며
+
+현재 개발 중인 프로젝트에서 NextAuth.js v5를 사용하여 인증을 구현하고 있습니다.
+액세스 토큰과 리프레시 토큰을 활용한 인증 시스템에서 비밀번호 해시화를 위해 bcrypt를 사용하던 중 예상치 못한 문제가 발생했습니다.
+
+## 문제 상황
+미들웨어를 통해 리프레시 토큰 만료 시 자동 로그아웃 처리를 구현하던 중, 다음과 같은 에러가 발생했습니다.
+
+```tsx showLineNumbers
+// src/lib/auth.ts
+
+import NextAuth from "next-auth"
+import Credentials from "next-auth/providers/credentials"
+ 
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [
+    Credentials({
+      credentials: {
+        email: {},
+        password: {},
+      },
+      authorize: async (credentials) => {
+ 
+        // 사용자 정보를 DB로부터 가져오는 함수
+        const user = await getUserFromDb(credentials.email, password)
+ 
+        if (!user) {
+          throw new Error("Invalid credentials.")
+        }
+
+        return user
+      },
+    }),
+  ],
+})
+```
+
+```tsx showLineNumbers
+// src/middleware.ts
+
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+import { auth, signOut } from "@/lib/auth"
+
+export async function middleware(request: NextRequest) {
+  const session = await auth()
+  if (session?.error === "RefreshToken expired") {
+    // 로그아웃 처리
+    await signOut()
+
+    // 현재 URL을 state로 저장하여 로그인 후 리다이렉트할 수 있도록 함
+    const callbackUrl = encodeURIComponent(request.url)
+
+    // 로그인 페이지로 리다이렉트
+    return NextResponse.redirect(
+      new URL(`/signin?callbackUrl=${callbackUrl}`, request.url)
+    )
+  }
+
+  return NextResponse.next()
+}
+```
+
+![Edge Runtime 에러 화면](/posts/20241113_nextauth.png)
+
+## 원인 분석
+
+### Edge Runtime의 제약사항
+Next.js의 미들웨어는 Edge Runtime 환경에서 실행되도록 설계되었습니다. Edge Runtime은 더 빠른 응답 시간과 글로벌 배포를 위해 최적화된 환경이지만, Node.js의 네이티브 모듈을 지원하지 않는 제약이 있습니다.
+
+🔗 <a href="https://nextjs.org/docs/app/building-your-application/routing/middleware#runtime" target="_blank" rel="noopener noreferrer">Next.js middleware - Runtime</a>
+
+### bcrypt의 특성
+bcrypt는 C++로 작성된 네이티브 모듈입니다. node-pre-gyp 패키지를 통해 Node.js 환경에서 실행되는 네이티브 C++ 확장 모듈을 사전 빌드하여 배포하는데, 이는 Edge Runtime에서 실행될 수 없습니다.
+
+## 해결방안
+
+1. bcryptjs로 교체
+    bcryptjs는 순수 JavaScript로 작성되어 있어 클라이언트 사이드에서도 실행이 가능합니다. 하지만 bcrypt에 비해 약 30% 정도 성능이 떨어진다는 단점이 있습니다.
+    
+    🔗 <a href="https://github.com/dcodeIO/bcrypt.js?tab=readme-ov-file#security-considerations" target="_blank" rel="noopener noreferrer">bcrypt.js github - Security considerations</a>
+
+2. 설정 분리 (선택한 방안)
+    bcrypt를 포함하는 설정을 별도로 분리하여 Edge Runtime에서 실행되지 않도록 처리하는 방법을 선택했습니다.
+
+<br />
+다음은 구체적인 구현 방법입니다.
+
+```tsx showLineNumbers
+// src/lib/auth.config.ts
+
+// bcrpyt를 제외한 config를 분리한다.
+ const authConfig = { 
+  //...
+  providers: [],
+ } 
+```
+
+```tsx showLineNumbers
+// src/lib/auth.ts
+
+// bcrpyt를 제외한 config를 import한다.
+import { authConfig } from "@/lib/auth/auth.config"
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+	...authConfig, // 추가
+  providers: [
+    Credentials({
+      credentials: {
+        email: {},
+        password: {},
+      },
+      authorize: async (credentials) => {
+ 
+        // 사용자 정보를 DB로부터 가져오는 로직
+        const user = await getUserFromDb(credentials.email, password)
+ 
+        if (!user) {
+          throw new Error("Invalid credentials.")
+        }
+
+        return user
+      },
+    }),
+  ],
+})
+```
+
+```tsx showLineNumbers
+// middleware.ts
+
+import NextAuth from "next-auth"
+
+// bcrpyt를 제외한 config를 import한다.
+import { authConfig } from "@/lib/auth/auth.config"
+
+const { auth } = NextAuth({ authConfig }) // NextAuth에 쇽!
+
+export async function middleware(request: NextRequest) {
+  const session = await auth()
+  if (session?.error === "RefreshToken expired") {
+    // 로그아웃 처리
+    await signOut()
+
+    // 현재 URL을 state로 저장하여 로그인 후 리다이렉트할 수 있도록 함
+    const callbackUrl = encodeURIComponent(request.url)
+
+    // 로그인 페이지로 리다이렉트
+    return NextResponse.redirect(
+      new URL(`/signin?callbackUrl=${callbackUrl}`, request.url)
+    )
+  }
+
+  return NextResponse.next()
+}
+```
+
+## 배운 점
+
+1. **Edge Runtime 고려사항**
+    Next.js의 미들웨어를 작성할 때는 Edge Runtime의 제약사항을 반드시 고려해야 합니다.
+2. **공식 문서의 중요성**
+    NextAuth.js 공식 문서의 Edge Compatibility 섹션에서 이미 해당 내용을 다루고 있었습니다. 새로운 기능을 구현하기 전에 공식 문서를 꼼꼼히 확인하는 것이 중요합니다.
+3. **설계 결정의 trade-off**
+   bcryptjs로의 교체와 설정 분리 중 성능과 구현 복잡도를 고려하여 최적의 방안을 선택해야 했습니다.
+
+## 참고 자료
+
+- [bcrypt GitHub Issue #1017](https://github.com/kelektiv/node.bcrypt.js/issues/1017)
+- [NextAuth.js 15 Migration Guide - Edge Compatibility](https://authjs.dev/getting-started/migrating-to-v5#edge-compatibility)
