@@ -1,27 +1,30 @@
 // components
 import CategoryList from '@/components/posts/CategoryList'
-import RenderPostList from '@/components/posts/RenderPostList'
-// libs
-import { getPostMetadataByCategory, getCategoriesWithPostCount } from '@/lib/post'
-
-interface RouteParams {
-  category: string
-}
-
-interface PageParams {
-  params: RouteParams
-}
+import PostList from '@/components/posts/PostList'
+// lib
+import {
+  getPostMetadataByCategory,
+  getCategoriesWithPostCount,
+} from '@/lib/post'
+// types
+import { PostInfo } from '@/types/post.types'
 
 /**
  * Static Generation을 위한 경로 파라미터 생성 함수
  */
-export async function generateStaticParams(): Promise<RouteParams[]> {
+export async function generateStaticParams(): Promise<
+  Pick<PostInfo, 'category'>[]
+> {
   const { categories } = await getCategoriesWithPostCount()
-  return categories
-    .filter(({ category }) => category !== 'all')
-    .map(({ category }) => ({
-      category,
-    }))
+
+  // 'all' 카테고리를 제외한 나머지 카테고리만 반환
+  const filteredCategories = categories.filter(
+    ({ category }) => category !== 'all'
+  )
+
+  return filteredCategories.map(({ category }) => ({
+    category,
+  }))
 }
 
 /**
@@ -29,26 +32,19 @@ export async function generateStaticParams(): Promise<RouteParams[]> {
  */
 export default async function PostListByCategoryPage({
   params: { category },
-}: PageParams): Promise<JSX.Element> {
-  try {
-    const [{ categories }, posts] = await Promise.all([
-      getCategoriesWithPostCount(),
-      getPostMetadataByCategory(category),
-    ])
+}: {
+  params: Pick<PostInfo, 'category'>
+}): Promise<JSX.Element> {
+  // 카테고리와 해당 카테고리의 포스트를 불러옴
+  const [{ categories }, posts] = await Promise.all([
+    getCategoriesWithPostCount(),
+    getPostMetadataByCategory(category),
+  ])
 
-    return (
-      <main>
-        <CategoryList categories={categories} />
-        <RenderPostList posts={posts} />
-      </main>
-    )
-  } catch (error) {
-    console.error('Error in CategoryPostsPage:', error)
-
-    return (
-      <main>
-        <p>데이터를 불러오는 중 오류가 발생했습니다.</p>
-      </main>
-    )
-  }
+  return (
+    <main>
+      <CategoryList categories={categories} />
+      <PostList posts={posts} />
+    </main>
+  )
 }

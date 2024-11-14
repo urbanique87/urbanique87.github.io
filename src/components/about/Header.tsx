@@ -1,33 +1,24 @@
-'use client'
-
-import { styled } from 'styled-components'
-// types
-import { AuthorData } from '@/types/about.types'
+// styles
+import classes from '@/components/about/Header.module.css'
 
 /**
  * 어바웃 헤더 컴포넌트
  */
-export default function Header({ author, description }: AuthorData): JSX.Element {
+export default function Header({
+  author,
+  introduce,
+}: {
+  author: string
+  introduce: string
+}): JSX.Element {
   return (
-    <Container>
-      <Author>{author}</Author>
-      <Introduce dangerouslySetInnerHTML={{ __html: description }}></Introduce>
-    </Container>
+    <header className={classes.header}>
+      <div className={classes.header__emoji}>👨‍💻</div>
+      <h1 className={classes.header__author}>{author}</h1>
+      <p
+        className={classes.header__introduce}
+        dangerouslySetInnerHTML={{ __html: introduce }}
+      ></p>
+    </header>
   )
 }
-
-const Container = styled.header`
-  margin-bottom: 1.25rem;
-`
-
-const Author = styled.h1`
-  margin-bottom: 1.75rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-`
-
-const Introduce = styled.p`
-  line-height: 1.6;
-  font-size: 1rem;
-  color: var(--text-secondary);
-`

@@ -1,25 +1,11 @@
-export interface PostBase {
+export interface Frontmatter {
   title: string
   description: string
-  date: string // ISO 형식
+  date: string
 }
 
-export interface PostMetadata extends PostBase {
-  [key: string]: unknown
-}
-
-export interface Category {
+export interface PostInfo extends Frontmatter {
   category: string
-}
-
-export interface PostSummary extends PostBase, Category {
-  slug: string
-}
-
-export interface PostCountByCategory extends Category {
   count: number
-}
-
-export interface CategoriesWithCounts {
-  categories: PostCountByCategory[]
+  slug: string
 }

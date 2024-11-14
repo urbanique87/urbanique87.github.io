@@ -3,16 +3,9 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 // components
 import Header from '@/components/layout/Header'
-import ClientThemeProvider from '@/components/posts/ClientThemeProvider'
 import FirebaseAnalytics from '@/components/FirebaseAnalytics'
-// libs
-import StyledComponentsRegistry from '@/lib/registry'
 // styles
-import '@/public/styles/globals.css'
-
-interface LayoutProps {
-  children: ReactNode
-}
+import '@/styles/globals.css'
 
 export const metadata: Metadata = {
   title: 'J.CHI Blog',
@@ -20,9 +13,15 @@ export const metadata: Metadata = {
     '기술과 창의성이 만나는 지점을 탐구하며, 통찰력 있는 글과 개인적인 생각을 나누는 공간입니다.',
 }
 
-export default function RootLayout({ children }: Readonly<LayoutProps>): JSX.Element {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>): JSX.Element {
   return (
     <html lang="en">
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      />
       <head>
         <link
           rel="stylesheet"
@@ -33,12 +32,8 @@ export default function RootLayout({ children }: Readonly<LayoutProps>): JSX.Ele
       </head>
       <body>
         <FirebaseAnalytics />
-        <StyledComponentsRegistry>
-          <ClientThemeProvider>
-            <Header />
-            {children}
-          </ClientThemeProvider>
-        </StyledComponentsRegistry>
+        <Header />
+        {children}
       </body>
     </html>
   )

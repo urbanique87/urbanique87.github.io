@@ -6,8 +6,6 @@ import { useEffect, useRef } from 'react'
  *
  * Giscus 댓글 시스템.
  * 클라이언트 사이드에서 Giscus 스크립트를 동적으로 로드하고 초기화합니다.
- *
- * @returns {JSX.Element}
  */
 export default function Giscus(): JSX.Element {
   const ref = useRef<HTMLDivElement>(null)

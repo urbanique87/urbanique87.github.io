@@ -1,0 +1,109 @@
+:root {
+  --divider: #ededec;
+  --date: #777777;
+
+  --background: #ffffff;
+  --surface: #f8f9fa;
+  --surface-alt: #f1f3f5;
+  --primary: #1971c2;
+  --primary-hover: #1864ab;
+  --secondary: #868e96;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --border: #dee2e6;
+  --accent: #20c997;
+  --error: #e03131;
+
+  --font-size-large: 1.25rem;
+
+  --layout-max-width: 680px;
+}
+
+/* 다크모드 스타일 정의 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --divider: #555555;
+
+    --background: #18191a;
+    --surface: #242526;
+    --surface-alt: #2d2f30;
+    --primary: #339af0;
+    --primary-hover: #4dabf7;
+    --secondary: #adb5bd;
+    --text-primary: #f8f9fa;
+    --text-secondary: #dee2e6;
+    --border: #495057;
+    --accent: #12b886;
+    --error: #ff6b6b;
+  }
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  line-height: 1.5;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--background);
+  font-family: 'Pretendard Variable', 'sans-serif';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* CUSTOM COMMON STYLES */
+img {
+  max-width: 100%;
+}
+
+h1 {
+  margin: 0 0 16px 0;
+  font-size: 2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+h2 {
+  margin: 0 0 16px 0;
+  font-size: 1.625rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.3125rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

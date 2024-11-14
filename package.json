@@ -17,15 +17,12 @@
     "react-dom": "^18",
     "rehype-pretty-code": "^0.14.0",
     "rehype-slug": "^6.0.0",
-    "remark-breaks": "^4.0.0",
-    "remark-gfm": "^4.0.0",
-    "styled-components": "^6.1.13"
+    "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/styled-components": "^5.1.34",
     "eslint": "^8",
     "eslint-config-next": "14.2.15",
     "typescript": "^5"

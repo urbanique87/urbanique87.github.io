@@ -1,0 +1,19 @@
+.header {
+  margin-bottom: 1.25rem;
+}
+
+.header__emoji {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+}
+
+.header__author {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header__introduce {
+  line-height: 1.6;
+  font-size: 14px;
+  color: var(--text-secondary);
+}

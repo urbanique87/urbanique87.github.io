@@ -1,29 +1,16 @@
 import { notFound } from 'next/navigation'
-// libs
-import { getPosts, fetchPostBySlug } from '@/lib/post'
 // components
-import RenderPost from '@/components/posts/RenderPost'
-// styles
-import '@/public/styles/github-markdown.css'
-
-interface RouteParams {
-  category: string
-  slug: string
-}
-
-interface PageParams {
-  params: RouteParams
-}
-
-interface Metadata {
-  title: string
-  description: string
-}
+import PostDetail from '@/components/posts/PostDetail'
+// lib
+import { getPosts, fetchPostBySlug } from '@/lib/post'
+import { PostInfo } from '@/types/post.types'
 
 /**
  * Static Generation을 위한 경로 파라미터 생성 함수
  */
-export async function generateStaticParams(): Promise<RouteParams[]> {
+export async function generateStaticParams(): Promise<
+  Pick<PostInfo, 'category' | 'slug'>[]
+> {
   const posts = await getPosts()
   return posts.map((post) => ({
     slug: post.slug,
@@ -34,22 +21,28 @@ export async function generateStaticParams(): Promise<RouteParams[]> {
 /**
  * 메타데이터 생성 함수
  */
-export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Pick<PostInfo, 'category' | 'slug'>
+}): Promise<{ title: string; description: string }> {
   const { category, slug } = params
-  const {
-    frontmatter: { title, description },
-  } = await fetchPostBySlug(category, slug)
+  const { frontmatter } = await fetchPostBySlug(category, slug)
 
   return {
-    title,
-    description,
+    title: frontmatter.title,
+    description: frontmatter.description,
   }
 }
 
 /**
  * 포스트 페이지
  */
-export default async function PostPage({ params }: PageParams): Promise<JSX.Element> {
+export default async function PostPage({
+  params,
+}: {
+  params: Pick<PostInfo, 'category' | 'slug'>
+}): Promise<JSX.Element> {
   const { category, slug } = params
   const post = await fetchPostBySlug(category, slug)
 
@@ -60,7 +53,7 @@ export default async function PostPage({ params }: PageParams): Promise<JSX.Elem
 
   return (
     <main>
-      <RenderPost post={post} />
+      <PostDetail post={post} />
     </main>
   )
 }

@@ -1,0 +1,9 @@
+.social-list {
+  margin-bottom: 2rem;
+}
+
+.social-list__list {
+  display: flex;
+  gap: 0.75rem;
+  list-style-type: none;
+}

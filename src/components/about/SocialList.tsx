@@ -1,41 +1,37 @@
-'use client'
-
 import Link from 'next/link'
-import { styled } from 'styled-components'
-// types
-import type { SocialLinks } from '@/types/about.types'
+// styles
+import classes from '@/components/about/SocialList.module.css'
+
+interface LinkItem {
+  href: string
+  label: string
+  svg: string
+}
 
 /**
  * 어바웃 소셜 링크 컴포넌트
  */
-export default function SocialList({ links, ariaLabel }: SocialLinks): JSX.Element {
+export default function SocialList({
+  links,
+}: {
+  links: LinkItem[]
+}): JSX.Element {
   return (
-    <Wrapper aria-label={ariaLabel}>
-      <List>
+    <nav className={classes['social-list']} aria-label="social links">
+      <ul className={classes['social-list__list']}>
         {links.map(({ href, label, svg }) => (
           <li key={label}>
-            <SocialLink aria-label={label} href={href} target="_blank" rel="noopener noreferrer">
+            <Link
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+            >
               <span dangerouslySetInnerHTML={{ __html: svg }} />
-            </SocialLink>
+            </Link>
           </li>
         ))}
-      </List>
-    </Wrapper>
+      </ul>
+    </nav>
   )
 }
-
-const Wrapper = styled.nav`
-  margin-bottom: 2rem;
-`
-
-const List = styled.ul`
-  display: flex;
-  gap: 0.75rem;
-  list-style-type: none;
-`
-
-const SocialLink = styled(Link)`
-  display: inline-block;
-  color: var(--text-primary);
-  transition: color 0.3s;
-`

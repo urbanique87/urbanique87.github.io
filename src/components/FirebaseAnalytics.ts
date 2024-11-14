@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-// libs
+// lib
 import { createFirebaseApp } from '@/lib/analytics'
 
 export default function FirebaseAnalytics() {

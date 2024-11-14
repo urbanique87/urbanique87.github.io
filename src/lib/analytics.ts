@@ -1,7 +1,7 @@
 import { getApps, initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 // config
-import { FIREBASE_CONFIG } from '@/config/constants/firebase'
+import { FIREBASE_CONFIG } from '@/constants/firebase'
 
 export function createFirebaseApp() {
   if (process.env.NODE_ENV === 'development') {

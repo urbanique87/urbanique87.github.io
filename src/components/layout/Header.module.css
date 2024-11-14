@@ -1,0 +1,57 @@
+.header {
+  border-bottom: 1px solid var(--divider);
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  height: 5rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+.header__list {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style-type: none;
+}
+
+.header__link {
+  position: relative;
+  color: var(--text-primary);
+  font-size: var(--font-size-large);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* 활성화된 링크 스타일 */
+.header__link--active {
+  position: relative;
+  color: var(--text-primary);
+  font-size: var(--font-size-large);
+  text-transform: uppercase;
+}
+
+/* 링크 하단에 밑줄 추가 */
+.header__link:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+}
+
+/* 활성화된 링크 밑줄 스타일 */
+.header__link--active:after {
+  background-color: var(--text-primary);
+}
+
+/* 링크 hover 상태에서 밑줄 스타일 */
+.header__link:hover:after {
+  background-color: var(--text-primary);
+}
