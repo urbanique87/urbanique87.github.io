@@ -130,7 +130,12 @@ export async function getPostMetadataByCategory(
   })
 
   // 특정 카테고리의 포스트 데이터를 평탄화하여 단일 배열로 반환
-  return Promise.all(postsByCategoryPromises)
+  const postsByCategories = await Promise.all(postsByCategoryPromises)
+
+  // 날짜를 기준으로 내림차순 정렬하여 최신 포스트가 최상위에 있도록 반환
+  return postsByCategories
+    .flat()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
 /**
