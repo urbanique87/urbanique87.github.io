@@ -1,9 +1,9 @@
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import type { ReactNode } from 'react'
 // types
 import type { Metadata } from 'next'
 // components
 import Header from '@/components/layout/Header'
-import FirebaseAnalytics from '@/components/FirebaseAnalytics'
 // styles
 import '@/styles/globals.css'
 
@@ -18,10 +18,6 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode }>): JSX.Element {
   return (
     <html lang="en">
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-      />
       <head>
         <link
           rel="stylesheet"
@@ -29,11 +25,12 @@ export default function RootLayout({
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
       </head>
       <body>
-        <FirebaseAnalytics />
         <Header />
         {children}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       </body>
     </html>
   )
