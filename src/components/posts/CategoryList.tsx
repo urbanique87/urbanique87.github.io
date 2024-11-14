@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 // styles
 import classes from '@/components/posts/CategoryList.module.css'
+// types
 import { PostInfo } from '@/types/post.types'
 
 /**

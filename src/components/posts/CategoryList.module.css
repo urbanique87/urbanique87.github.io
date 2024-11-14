@@ -7,12 +7,12 @@
   list-style: none;
   white-space: nowrap;
   scroll-behavior: smooth;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+.category-list__items::-webkit-scrollbar {
+  display: none;
 }
 
 .category-list__item {
