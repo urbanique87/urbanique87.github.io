@@ -1,0 +1,215 @@
+---
+title: NextAuth - UntrustedHost 이해하기
+description: NextAuth.js v5에서 마주치는 UntrustedHost 오류의 원인과 해결 방법을 알아봅니다. trustHost 옵션 설정부터 X-Forwarded-Host 헤더의 역할, 그리고 로컬 환경과 프로덕션 환경에서의 올바른 설정 방법까지 자세히 다룹니다.
+date: 2024-11-18
+---
+## 문제 상황
+
+**NextAuth.js v5**를 사용하여 인증을 구현하던 중,  
+로컬 환경에서 프로덕션 모드로 실행시 다음과 같은 오류 메시지가 발생했습니다.
+
+```bash
+ [tk: Host must be trusted. URL was: http://localhost:3000/api/auth/session. Read more at https://errors.authjs.dev#untrustedhost] {
+  name: 'tk',
+  type: 'UntrustedHost',
+  kind: 'error'
+} []
+```
+
+## 해결 방법
+### TrustHost 옵션 설정하기
+
+이 오류는 다음 두 가지 방법 중 하나로 해결할 수 있습니다.
+
+🔗 [Auth.js - UntrustedHost](https://authjs.dev/reference/core/errors#untrustedhost)
+
+1. NextAuth 설정에서 직접 설정
+    ```tsx
+    export const authConfig = {
+      ...
+      trustHost: true,
+      ...
+    }
+    ```
+
+1. 환경 변수로 설정
+    ```tsx
+    AUTH_TRUST_HOST=TRUE
+    ```
+
+이제 이 오류가 발생하는 원인에 대해 좀 더 깊이 살펴보겠습니다.
+
+## 기술적 배경
+### **AUTH_TRUST_HOST**란?
+
+공식 문서에 따르면, **`AUTH_TRUST_HOST`** 환경 변수는 다음과 같이 설명되어 있습니다.
+
+> When deploying your application behind a reverse proxy, you’ll need to set `AUTH_TRUST_HOST` equal to true. This tells Auth.js to trust the `X-Forwarded-Host` header from the reverse proxy. Auth.js will automatically infer this to be true if we detect the environment variable indicating that your application is running on one of the supported hosting providers. Currently VERCEL and CF_PAGES (Cloudflare Pages) are supported.
+> 
+
+AUTH_TRUST_HOST 설정은 리버스 프록시 환경에서 특히 중요합니다.  
+이 설정이 필요한 주요 상황은 다음과 같습니다.
+- 리버스 프록시 사용 시
+- `X-Forwarded-Host` 헤더를 사용하는 환경
+- 특정 호스팅 제공업체 사용 시
+  
+  
+### 자동 활성화 환경
+
+다음 호스팅 환경에서는 `AUTH_TRUST_HOST`가 자동으로 활성화됩니다.
+
+- Vercel
+- Cloudflare Pages
+
+### **X-Forwarded-Host 헤더의 역할**
+
+- 클라이언트의 원래 요청 호스트 정보를 포함
+- 리버스 프록시 환경에서 중요한 역할
+- 로드 밸런서나 프록시 서버에서 주로 사용
+
+## 로컬 환경에서의 **UntrustedHost** 오류
+### 발생 원인
+
+로컬 환경에서 프로덕션 모드 실행 시 **UntrustedHost 오류가 발생하는 이유**
+1. Next.js의 내부 동작
+    1. 리버스 프록시가 없어도 **`X-Forwarded-Host`** 헤더 자동 설정
+2. NextAuth의 보안 정책
+    1. 프로덕션 환경에서 호스트 검증 수행
+    2. 명시적인 신뢰 설정 요구
+
+### NextAuth의 내부 동작
+
+NextAuth v5의 코드를 살펴보면 다음과 같은 로직으로 작동합니다.
+
+```tsx
+// node_modules/@auth/core/src/lib/utils/env.ts
+
+  config.trustHost ??= !!(
+    envObject.AUTH_URL ??
+    envObject.AUTH_TRUST_HOST ??
+    envObject.VERCEL ??
+    envObject.CF_PAGES ??
+    envObject.NODE_ENV !== "production"
+  )
+```
+
+이 코드는 다음 조건들을 확인하여 trustHost 값을 결정합니다.
+
+- AUTH_URL 존재 여부
+- AUTH_TRUST_HOST 설정
+- Vercel 환경
+- Cloudflare Pages 환경
+- 개발 환경 여부
+
+```tsx
+// node_modules/@auth/core/src/lib/utils/assert.ts
+
+export function assertConfig(request, options) {
+    const { url } = request;
+    const warnings = [];
+    if (!warned && options.debug)
+        warnings.push("debug-enabled");
+    if (!options.trustHost) {
+        return new UntrustedHost(`Host must be trusted. URL was: ${request.url}`);
+    }
+    
+    ...
+```
+
+**X-Forwarded-Host** 헤더를 사용하는 코드
+
+```tsx
+// node_modules/@auth/core/src/lib/utils/env.ts 
+
+export function createActionURL(
+  action: AuthAction,
+  protocol: string,
+  headers: Headers,
+  envObject: any,
+  config: Pick<AuthConfig, "basePath" | "logger">
+): URL {
+  const basePath = config?.basePath
+  const envUrl = envObject.AUTH_URL ?? envObject.NEXTAUTH_URL
+
+  let url: URL
+  if (envUrl) {
+    url = new URL(envUrl)
+    if (basePath && basePath !== "/" && url.pathname !== "/") {
+      if (url.pathname !== basePath) {
+        const logger = setLogger(config)
+        logger.warn("env-url-basepath-mismatch")
+      }
+      url.pathname = "/"
+    }
+  } else {
+    const detectedHost = headers.get("x-forwarded-host") ?? headers.get("host")
+    const detectedProtocol =
+      headers.get("x-forwarded-proto") ?? protocol ?? "https"
+    const _protocol = detectedProtocol.endsWith(":")
+      ? detectedProtocol
+      : detectedProtocol + ":"
+
+    url = new URL(`${_protocol}//${detectedHost}`)
+  }
+
+  // remove trailing slash
+  const sanitizedUrl = url.toString().replace(/\/$/, "")
+
+  if (basePath) {
+    // remove leading and trailing slash
+    const sanitizedBasePath = basePath?.replace(/(^\/|\/$)/g, "") ?? ""
+    return new URL(`${sanitizedUrl}/${sanitizedBasePath}/${action}`)
+  }
+  return new URL(`${sanitizedUrl}/${action}`)
+}
+
+```
+
+음..? 
+
+이 코드는 **`X-Forwarded-Host`** 헤더를 사용하여 URL을 생성하는 용도로만 사용됩니다.
+
+작성된 공식 문서를 보았을 때, 아마 v5 이전 버전에는 x-forwarded-host 와 실제 host를 비교하는 보안 검증이 있었던 것 같습니다.
+
+## 실제 적용 가이드
+
+### 로컬 개발 환경
+
+개발 환경에서는 별도 설정이 필요 없습니다. (`NODE_ENV !== "production"` 조건으로 인해)
+
+### 로컬 프로덕션 테스트
+
+다음 중 한 가지 방법으로 설정하세요.
+
+```tsx
+// .env
+
+# 환경 변수 설정
+AUTH_TRUST_HOST=TRUE
+```
+
+또는
+
+```tsx
+// NextAuth 설정
+
+export const authConfig = {
+  trustHost: true
+}
+```
+
+### 실제 프로덕션 환경
+
+- Vercel/Cloudflare Pages
+    - 추가 설정 불필요 (자동 활성화)
+- 기타 호스팅 환경
+    - 환경에 맞는 적절한 trustHost 설정 필요
+    - 리버스 프록시 사용 시 반드시 활성화
+
+## 결론
+
+NextAuth v5에서의 UntrustedHost 메시지는 보안을 위한 호스트 검증 절차의 일부입니다. 
+
+이는 이전 버전과 달리(추측) `X-Forwarded-Host` 헤더 검증과는 직접적인 관련이 없으며, 환경 변수나 설정을 통해 제어됩니다.
+
+특히 로컬에서 프로덕션 모드 테스트 시에는 `AUTH_TRUST_HOST=true` 설정으로 해결할 수 있으며, 실제 배포 환경에서는 해당 환경에 맞는 적절한 설정을 사용하면 됩니다.

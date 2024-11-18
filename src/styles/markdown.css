@@ -7,10 +7,19 @@
     word-break: break-word;
   }
 
+  span:not(code span) {
+    font-weight: bold;
+  }
+
   a {
     background-color: transparent;
     color: #0969da;
     text-decoration: none;
+  }
+
+  blockquote {
+    border-left: 4px solid;
+    padding-left: 1rem;
   }
 
   /* 리스트 스타일 */
@@ -23,7 +32,7 @@
     padding-bottom: 1rem;
   }
 
-  li > ul {
+  li > ol, li > ul {
     margin-top: 1rem;
   }
 
@@ -31,12 +40,16 @@
     padding-bottom: 0;
   }
 
+  li > p:last-child {
+    margin-bottom: 0;
+  }
+
   /* 헤딩 스타일 */
   h2 ~ h2 {
     padding-top: 1.875rem;
   }
 
-  p + h3 {
+  p + h3, ul + h3, ol + h3, figure + h3 {
     padding-top: 1.875rem;
   }
 
