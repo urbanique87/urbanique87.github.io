@@ -4,8 +4,16 @@
         <title><![CDATA[J.CHI Blog]]></title>
         <link>https://urbanique87.github.io</link>
         <description><![CDATA[기술과 창의성이 만나는 지점을 탐구하며, 통찰력 있는 글과 개인적인 생각을 나누는 공간입니다.]]></description>
-        <lastBuildDate>Thu, 14 Nov 2024 06:59:03 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 18 Nov 2024 04:31:58 GMT</lastBuildDate>
         
+        <item>
+          <title><![CDATA[NextAuth - UntrustedHost 이해하기]]></title>
+          <link>https://urbanique87.github.io/posts/frontend/20241118_nextauth</link>
+          <description><![CDATA[NextAuth.js v5에서 마주치는 UntrustedHost 오류의 원인과 해결 방법을 알아봅니다. trustHost 옵션 설정부터 X-Forwarded-Host 헤더의 역할, 그리고 로컬 환경과 프로덕션 환경에서의 올바른 설정 방법까지 자세히 다룹니다.]]></description>
+          <pubDate>Mon, 18 Nov 2024 00:00:00 GMT</pubDate>
+          <guid isPermaLink="true">https://urbanique87.github.io/posts/frontend/20241118_nextauth</guid>
+        </item>
+      
         <item>
           <title><![CDATA[Next.js 15 Edge Runtime에서 NextAuth v5와 bcrypt 호환성 문제 해결하기]]></title>
           <link>https://urbanique87.github.io/posts/frontend/20241113_nextauth</link>
